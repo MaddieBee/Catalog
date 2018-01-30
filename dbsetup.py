@@ -10,8 +10,8 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-class Cello(Base):
-	__tablename__ = 'cello'
+class Luthier(Base):
+	__tablename__ = 'luthier'
 
 	id = Column(Integer, primary_key=True)
 	name = Column(String(250), nullable=False)
@@ -24,8 +24,9 @@ class CatalogItem(Base):
 	description = Column(String(250))
 	price = Column(String(10))
 	year = Column(String(10))
-	cello_id = Column(Integer, ForeignKey('cello.id'))
-	cello = relationship(Cello)
+	country = Column(String(80))
+	luthier_id = Column(Integer, ForeignKey('luthier.id'))
+	luthier = relationship(luthier)
 
 class User(Base):
 	__tablename__ = 'user'

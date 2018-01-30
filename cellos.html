@@ -7,19 +7,19 @@
 
 <body>
 <div class = 'pane'>
-<h1>Cellos</h1>
+<h1>Luthiers</h1>
 
-<a href="{{url_for('newcello')}}" > <h3> Add A New Cello </h3> </a>
+<a href="{{url_for('newLuthier')}}" > <h3> Add A New Luthier </h3> </a>
 
-{% for cello in cellos %}
+{% for luthier in luthiers %}
 
 
 
-<a href = "{{url_for('showCello', cello = cello.id)}}"> <p>{{cello.name}}</p></a>
+<a href = "{{url_for('showLuthier', luthier = luthier.id)}}"> <p>{{luthier.name}}</p></a>
 
-<p><a href = "{{url_for('editCello',restaurant_id = restaurant.id)}}">Edit Cello</a></p>
+<p><a href = "{{url_for('editLuthier',luthier_id = luthier.id)}}">Edit Luthier</a></p>
 
-<p> <a href = "{{url_for('deleteCello',cello_id = cello.id)}}">Delete Cello</a> </p>
+<p> <a href = "{{url_for('deleteLuthier',luthier_id = luthier.id)}}">Delete Luthier</a> </p>
 
 
 
