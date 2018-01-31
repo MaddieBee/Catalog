@@ -10,14 +10,21 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+class User(Base):
+	__tablename__ = 'user'
+
+	id = Column(Integer, primary_key=True)
+	name = Column(String(250), nullable=False)
+	email = Column(String(250), nullable=False)
+
 class Luthier(Base):
 	__tablename__ = 'luthier'
 
 	id = Column(Integer, primary_key=True)
 	name = Column(String(250), nullable=False)
 
-class CatalogItem(Base):
-	__tablename__ = 'catalog_item'
+class CelloItem(Base):
+	__tablename__ = 'cello_item'
 
 	name = Column(String(80), nullable=False)
 	id = Column(Integer, primary_key=True)
@@ -28,12 +35,7 @@ class CatalogItem(Base):
 	luthier_id = Column(Integer, ForeignKey('luthier.id'))
 	luthier = relationship(luthier)
 
-class User(Base):
-	__tablename__ = 'user'
 
-	id = Column(Integer, primary_key=True)
-	name = Column(String(250), nullable=False)
-	email = Column(String(250), nullable=False)
 
 
 engine = create_engine('sqlite:///cellocatalog.db')

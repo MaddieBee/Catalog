@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db_setup import Base, Cello, CatalogItem
+from db_setup import Luthier, Base, CelloItem
 
 app = Flask(__name__)
 
