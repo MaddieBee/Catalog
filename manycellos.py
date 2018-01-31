@@ -27,43 +27,43 @@ luthier1 = Luthier(name="David Tecchler")
 session.add(luthier1)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier1)
 
 session.add(celloItem7)
@@ -72,48 +72,48 @@ session.commit()
 
 
 
-luthier2 = Luthier(name="    ")
+luthier2 = Luthier(name="Armando Altavilla")
 
 session.add(luthier2)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="C1470", description="Finely crafted and varnished by hand.     ", price="   ", year="1926", country="Italy", 
 			luthier=luthier2)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier2)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier2)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier2)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier2)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier2)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier2)
 
 session.add(celloItem7)
@@ -129,43 +129,43 @@ luthier3 = Luthier(name="    ")
 session.add(luthier3)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier3)
 
 session.add(celloItem7)
@@ -181,43 +181,43 @@ luthier4 = Luthier(name="    ")
 session.add(luthier4)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier4)
 
 session.add(celloItem7)
@@ -232,43 +232,43 @@ luthier5 = Luthier(name="    ")
 session.add(luthier5)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier5)
 
 session.add(celloItem7)
@@ -283,43 +283,43 @@ luthier6 = Luthier(name="    ")
 session.add(luthier6)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier6)
 
 session.add(celloItem7)
@@ -334,43 +334,43 @@ luthier7 = Luthier(name="    ")
 session.add(luthier7)
 session.commit()
 
-celloItem1 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem1 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem1)
 session.commit()
 
-celloItem2 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem2 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem2)
 session.commit()
 
-celloItem3 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem3 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem3)
 session.commit()
 
-celloItem4 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem4 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem4)
 session.commit()
 
-celloItem5 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem5 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem5)
 session.commit()
 
-celloItem6 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem6 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem6)
 session.commit()
 
-celloItem7 = CelloItem(name="    ", description="   ", price="   ", year="  ", country="  ", 
+celloItem7 = CelloItem(model="    ", description="   ", price="   ", year="  ", country="  ", 
 			luthier=luthier7)
 
 session.add(celloItem7)
