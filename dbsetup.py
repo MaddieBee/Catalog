@@ -34,7 +34,7 @@ class CelloItem(Base):
 	year = Column(String(10))
 	country = Column(String(80))
 	luthier_id = Column(Integer, ForeignKey('luthier.id'))
-	luthier = relationship(luthier)
+	luthier = relationship(Luthier)
 
 
 
