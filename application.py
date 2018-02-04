@@ -16,12 +16,18 @@ session = DBSession()
 @app.route('/')
 @app.route('/luthier/')
 def showLuthiers():
-    luthiers = session.query(Luthier).all()
+    luthiers = session.query(Luthier).first()
     # return "This page will show all my restaurants"
-    return render_template('luthiers.html', luthiers=luthiers)
-
+    #return render_template('luthiers.html', luthiers=luthiers)
+    items = session.query(CelloItem).filter_by(luthier_id 
+    	=luthier.id)
+    output = ''
+    for i in items:
+    	output += i.name 
+    	output += '</br>'
+    return output
 
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5454) 
+    app.run(host='0.0.0.0', port=5000) 
