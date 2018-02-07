@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from db_setup import Cello, Base, CatalogItem
+from db_setup import Base, Luthier, CelloItem
 
 
 engine = create_engine('sqlite:///cellocatalog.db')

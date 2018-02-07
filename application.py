@@ -27,6 +27,9 @@ def showLuthiers():
     	output += '</br>'
     return output
 
+# Create route for new cello listing function
+
+@app.route('/luthier/<int:luthier_id/>/<int:ce')
 
 if __name__ == '__main__':
     app.debug = True
