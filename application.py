@@ -12,8 +12,26 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
+
+
 # Show all Luthiers
+
 @app.route('/')
+def index():
+    return 'Hier ist unsere Startseite>'
+
+@app.route('/profile/')
+def profile():
+    return '<h2>This is the default start page for users.</h2>'
+
+@app.route('/profile/<username>')
+def profile(username):
+    return"Was geht ab %s?" % username
+
+@app.route('/main.html/')
+def main():
+    return render_template('main.html')
+
 @app.route('/luthier/')
 def showLuthiers():
     luthiers = session.query(Luthier).first()
@@ -28,6 +46,78 @@ def showLuthiers():
     return output
 
     return "Go fuck yourself"
+
+# When using strings, no need to specify data type.  But for integers 
+# you must specify the data type.
+
+'''@app.route('/post/<int:post_id')
+def post(post_id):
+    return "<h1> Post ID is %s<h1>" % post_id'''
+
+
+'''
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+@app.route('/')
+def ():
+    return
+
+'''    
+
 
 # Create route for new cello listing function
 
