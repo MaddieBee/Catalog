@@ -45,21 +45,29 @@ def showLuthiers():
     	output += '</br>'
     return output
 
-    return "Go fuck yourself"
+    return "confusion"
 
 # When using strings, no need to specify data type.  But for integers 
 # you must specify the data type.
 
-'''@app.route('/post/<int:post_id')
-def post(post_id):
-    return "<h1> Post ID is %s<h1>" % post_id'''
+@app.route('/post/<int:post_id')
+def show_post(post_id):
+    # show the post with the given id, the id is an integer
+    return 'Post %d' post_id
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'],
+                        request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+    return render_template('login.html', error=error)
 
 '''
-@app.route('/')
-def ():
-    return
-
 @app.route('/')
 def ():
     return
