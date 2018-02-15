@@ -8,15 +8,6 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 
-class User(Base):
-    __tablename__ = 'user'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    email = Column(String(250), nullable=False)
-    picture = Column(String)
-
-
 class Luthier(Base):
     __tablename__ = 'luthier'
 
@@ -41,7 +32,7 @@ class CelloItem(Base):
     price = Column(String(10))
     year = Column(String(10))
     country = Column(String(80))
-    classification = Column(String(80), nullable=False)
+    classification = Column(String(80))
     luthier_id = Column(Integer, ForeignKey('luthier.id'))
     luthier = relationship(Luthier)
 
@@ -58,6 +49,15 @@ class CelloItem(Base):
             'classification': self.classification,
         }
 
+
+''' class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    picture = Column(String)
+'''
 
 engine = create_engine('sqlite:///cellocatalog.db')
 

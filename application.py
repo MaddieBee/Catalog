@@ -22,9 +22,9 @@ def index():
 def profile():
     return '<h2>This is the default start page for users.</h2>'
 
-@app.route('/profile/<username>')
-def profile(username):
-    return"Was geht ab %s?" % username
+# @app.route('/profile/<username>')
+# def profile(username):
+#    return"Was geht ab %s?" % username
 
 @app.route('/main.html/')
 def main():
@@ -48,10 +48,10 @@ def showLuthiers():
 # When using strings, no need to specify data type.  But for integers 
 # you must specify the data type.
 
-@app.route('/post/<int:post_id')
-def show_post(post_id):
+# @app.route('/post/<int:post_id')
+# def show_post(post_id):
     # show the post with the given id, the id is an integer
-    return 'Post %d' post_id
+#    return 'Post %d' post_id
 
 
 @app.route('/login', methods=['GET', 'POST'])
