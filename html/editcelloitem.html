@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('css', filename='styles.css') }}">
+	</head>
+
+<body><h1> Edit Cello Item </h1>
+
+<form action="#" method = 'post'>
+
+
+	<p>Model:</p>
+		<input type ='text' size='30' name='model' placeholder = '{{item.model }}'>
+	<p>Description:</p>
+		<input type ='text' size='30' name='description' placeholder = '{{item.description}}'>
+	<p>Price:</p>
+		<input type ='text' size='30' name='price' placeholder = '{{item.price}}'>
+	<p>Year:</p>
+		<input type ='text' size='30' name='year' placeholder = '{{item.year}}'>	
+	<p>Country:</p>
+		<input type ='text' size='30' name='country' placeholder = '{{item.country}}'>		
+	<p>Classification:</p>
+
+	{% if item.classification == 'Appetizer' %}
+			<dd><input type ='radio' name='classification' value='Beginner' checked>Beginner</dd>
+		
+		{%else%}
+		<dd><input type ='radio' name='classification' value='Beginner' >Beginner</dd>
+	    {% endif %}
+
+	    {% if item.classification == 'Entree' %}
+	       <dd><input type ='radio' name='classification' value='Student' checked>Student</dd>
+
+	    {%else%}
+			<dd><input type ='radio' name='classification' value='Student'>Student</dd>
+	    {% endif %}
+
+		{% if item.classification == 'Dessert'%}
+			<dd><input type ='radio' name='classification' value='Advanced' checked>Advanced</dd>
+
+		{% else %}
+		   <dd><input type ='radio' name='classification' value='Advanced'>Advanced</dd>
+
+		{% endif %}
+
+
+		{%if item.classification =='Beverage'%}
+			<dd><input type ='radio' name='classification' value='Master' checked>Master</dd>
+		{% else %}
+			<dd><input type ='radio' name='classification' value='Master'>Master</dd>
+		{% endif %}
+
+<input type='submit' value='Edit'>
+
+
+<a href = '#'> OOPS!  JK JK! </a>
+
+
+</form>
+</body>
+</html>

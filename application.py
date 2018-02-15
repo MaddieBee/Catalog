@@ -12,8 +12,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-
-
 # Show all Luthiers
 
 @app.route('/')
@@ -66,6 +64,14 @@ def login():
         else:
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='0.0.0.0', port=5000)
+
+
+
+
 
 '''
 @app.route('/')
@@ -130,8 +136,4 @@ def ():
 # Create route for new cello listing function
 
 #@app.route('/luthier/<int:luthier_id/>/<int:ce')
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0', port=5000)
 

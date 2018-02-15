@@ -41,6 +41,7 @@ class CelloItem(Base):
     price = Column(String(10))
     year = Column(String(10))
     country = Column(String(80))
+    classification = Column(String(80), nullable=False)
     luthier_id = Column(Integer, ForeignKey('luthier.id'))
     luthier = relationship(Luthier)
 
@@ -54,6 +55,7 @@ class CelloItem(Base):
             'price': self.price,
             'year': self.year,
             'country': self.country,
+            'classification': self.classification,
         }
 
 
