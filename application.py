@@ -15,16 +15,26 @@ session = DBSession()
 # Show all Luthiers
 
 @app.route('/')
-def index():
-    return 'Hier ist unsere Startseite>'
-
-@app.route('/profile/')
-def profile():
-    return '<h2>This is the default start page for users.</h2>'
-
-# @app.route('/profile/<username>')
-# def profile(username):
-#    return"Was geht ab %s?" % username
+@app.route('/luthiers/<int:luthier_id>/')
+def luthierCello(luthier_id):
+    luthier = session.query(Luthier).filter_by(id=luthier_id).one()
+    items = session.query(CelloItem).filter_by(luthier_id=luthier.id)
+    output = ''
+    for i in items:
+        output += i.model     
+        output += '</br>'
+        output += i.description
+        output += '</br>'
+        output += i.price
+        output += '</br>'
+        output += i.year 
+        output += '</br>'
+        output += i.country
+        output += '</br>'
+        output += i.classification
+        output += '</br>'
+        output += '</br>'
+    return output        
 
 @app.route('/main.html/')
 def main():
@@ -37,9 +47,7 @@ def showLuthiers():
     return render_template('luthiers.html', luthiers=luthiers)
     items = session.query(Luthier).filter_by(luthier_id
     	=luthier.id)
-    output = ''
-    for i in items:
-    	output += i.name 
+
     	output += '</br>'
     return output
 
@@ -74,6 +82,11 @@ if __name__ == '__main__':
 
 
 '''
+URLs with Variables
+"path.<type:variable_name>/path"
+
+
+
 @app.route('/')
 def ():
     return
