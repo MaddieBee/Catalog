@@ -22,9 +22,9 @@ def showCellos(luthier_id):
     return render_template('cello.html', items=items, restaurant=restaurant)
      
 
-@app.route('/main.html/')
+@app.route('/cello/')
 def main():
-    return render_template('main.html')
+    return render_template('cello.html')
 
 @app.route('/luthier/')
 def showLuthiers():
