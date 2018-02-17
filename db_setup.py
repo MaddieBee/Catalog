@@ -7,7 +7,6 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-
 class Luthier(Base):
     __tablename__ = 'luthier'
 
@@ -49,6 +48,9 @@ class CelloItem(Base):
             'classification': self.classification,
         }
 
+engine = create_engine('sqlite:///cellocatalog.db')
+
+Base.metadata.create_all(engine)
 
 ''' class User(Base):
     __tablename__ = 'user'
@@ -59,6 +61,3 @@ class CelloItem(Base):
     picture = Column(String)
 '''
 
-engine = create_engine('sqlite:///cellocatalog.db')
-
-Base.metadata.create_all(engine)

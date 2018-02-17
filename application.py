@@ -12,29 +12,15 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# Show all Luthiers
+# Show a Luthier's Cellos
 
-@app.route('/')
-@app.route('/luthiers/<int:luthier_id>/')
-def luthierCello(luthier_id):
+@app.route('/luthier/<int:luthier_id>/')
+@app.route('/luthier/<int:luthier_id>/cello')
+def showCellos(luthier_id):
     luthier = session.query(Luthier).filter_by(id=luthier_id).one()
-    items = session.query(CelloItem).filter_by(luthier_id=luthier.id)
-    output = ''
-    for i in items:
-        output += i.model     
-        output += '</br>'
-        output += i.description
-        output += '</br>'
-        output += i.price
-        output += '</br>'
-        output += i.year 
-        output += '</br>'
-        output += i.country
-        output += '</br>'
-        output += i.classification
-        output += '</br>'
-        output += '</br>'
-    return output        
+    items = session.query(CelloItem).filter_by(luthier_id=luthier.id).all()
+    return render_template('cello.html', items=items, restaurant=restaurant)
+     
 
 @app.route('/main.html/')
 def main():
@@ -43,15 +29,13 @@ def main():
 @app.route('/luthier/')
 def showLuthiers():
     luthiers = session.query(Luthier).first()
-    return "This page will show all my restaurants"
+    return "This page will show all of the luthiers"
     return render_template('luthiers.html', luthiers=luthiers)
     items = session.query(Luthier).filter_by(luthier_id
     	=luthier.id)
 
-    	output += '</br>'
+    output += '</br>'
     return output
-
-    return "confusion"
 
 # When using strings, no need to specify data type.  But for integers 
 # you must specify the data type.
@@ -85,8 +69,6 @@ if __name__ == '__main__':
 URLs with Variables
 "path.<type:variable_name>/path"
 
-
-
 @app.route('/')
 def ():
     return
@@ -94,59 +76,4 @@ def ():
 @app.route('/')
 def ():
     return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-
-'''    
-
-
-# Create route for new cello listing function
-
-#@app.route('/luthier/<int:luthier_id/>/<int:ce')
-
+'''
