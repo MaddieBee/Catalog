@@ -24,7 +24,7 @@ def showCellos(luthier_id):
 
 @app.route('/cello/')
 def main():
-    return render_template('cello.html')
+    return render_template('celloitem.html')
 
 @app.route('/luthier/')
 def showLuthiers():
@@ -36,6 +36,26 @@ def showLuthiers():
 
     output += '</br>'
     return output
+
+@app.route('/')  
+@app.route('/deletecelloitem/')    
+def deleteCello():
+    return render_template('deletecelloitem.html')
+
+@app.route('/')  
+@app.route('/deleteluthier/')    
+def deleteLuthier():
+    return render_template('deleteluthier.html')
+
+@app.route('/')  
+@app.route('/editcelloitem/')    
+def editCello():
+    return render_template('editcelloitem.html')
+
+@app.route('/')  
+@app.route('/editluthier/')    
+def editLuthier():
+    return render_template('editluthier.html')
 
 # When using strings, no need to specify data type.  But for integers 
 # you must specify the data type.
