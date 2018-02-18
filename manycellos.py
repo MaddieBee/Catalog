@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from db_setup import Base, Luthier, CelloItem
+from database_setup import Base, Luthier, CelloItem
 
 
-engine = create_engine('sqlite:///cellocatalog.db')
+engine = create_engine("sqlite:///cellocatalog.db", pool_pre_ping=True)
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
@@ -25,6 +25,7 @@ luthier1 = Luthier(name="David Tecchler")
 
 session.add(luthier1)
 session.commit()
+
 
 celloItem1 = CelloItem(model="Emanuel Wilfer Gofriller", description="Responsive and resonant with a full-bodied and warm sound.", 
 						price="$12,000.00", year="2017", country="Germany", classification="Advanced", luthier=luthier1)
