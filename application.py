@@ -12,6 +12,16 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
+
+# Show all catalogs 
+
+@app.route('/')
+@app.route('/catalogs/', methods=['GET, 'POST'])
+def showCatalogs(): 
+
+
+
+
 # Show a Luthier's Cellos
 
 @app.route('/luthier/<int:luthier_id>/')
@@ -37,22 +47,18 @@ def showLuthiers():
     output += '</br>'
     return output
 
-@app.route('/')  
 @app.route('/deletecelloitem/')    
 def deleteCello():
     return render_template('deletecelloitem.html')
 
-@app.route('/')  
 @app.route('/deleteluthier/')    
 def deleteLuthier():
     return render_template('deleteluthier.html')
 
-@app.route('/')  
 @app.route('/editcelloitem/')    
 def editCello():
     return render_template('editcelloitem.html')
 
-@app.route('/')  
 @app.route('/editluthier/')    
 def editLuthier():
     return render_template('editluthier.html')
@@ -77,9 +83,10 @@ def login():
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
 
+
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)
 
 
 
