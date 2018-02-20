@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Luthier, Base, CelloItem
-
-app = Flask(__name__)
 
 engine = create_engine('sqlite:///cellocatalog.db')
 Base.metadata.bind = engine
@@ -11,11 +10,57 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+app = Flask(__name__)
 
-
-# Show all catalogs 
+# Main Page.  Displays all Luthier's cellos.  
 
 @app.route('/')
+@app.route('/index', methods=['GET', 'POST'])
+def showIndex():
+    luthier = session.query(Luthier).first()
+    items = session.query(CelloItem).filter_by(luthier_id=luthier.id)
+    output = ''
+    for i in items:
+        output += "Model:  " + i.model 
+        output += '</br>'
+        output += "Country: " + i.country 
+        output += '</br>' 
+        output += "Classification:  " + i.classification 
+        output += '</br>'
+        output += "Price  " + i.price 
+        output += '</br>'       
+        output += '</br>'       
+
+    return output
+
+@app.route('/luthier/<int:luthier_id>/new/')
+def newCelloItem(luthier_id):
+    return "page to create a new cello listing. Task 1 complete!"
+
+@app.route('/luthier/')
+def Luthiers():
+    luthiers = session.query(Luthier).all()
+    # return "This page will show all of the luthiers"
+    return render_template('luthiers.html', luthiers=luthiers)
+
+@app.route('/editluthier/')    
+def editLuthier():
+    return render_template('editLuthier.html')
+
+@app.route('/deleteluthier/')    
+def deleteLuthier():
+    return render_template('deleteLuthier.html')
+
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='0.0.0.0', port=8000)
+
+
+'''
+# Show all catalogs 
+
+
 @app.route('/catalogs/', methods=['GET, 'POST'])
 def showCatalogs(): 
 
@@ -51,17 +96,12 @@ def showLuthiers():
 def deleteCello():
     return render_template('deletecelloitem.html')
 
-@app.route('/deleteluthier/')    
-def deleteLuthier():
-    return render_template('deleteluthier.html')
 
 @app.route('/editcelloitem/')    
 def editCello():
     return render_template('editcelloitem.html')
 
-@app.route('/editluthier/')    
-def editLuthier():
-    return render_template('editluthier.html')
+
 
 # When using strings, no need to specify data type.  But for integers 
 # you must specify the data type.
@@ -83,13 +123,7 @@ def login():
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
 
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0', port=8000)
-
-
-
+'''
 
 
 '''
