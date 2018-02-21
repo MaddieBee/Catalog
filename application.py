@@ -39,9 +39,37 @@ def Luthiers():
     # return "This page will show all of the luthiers"
     return render_template('luthiers.html', luthiers=luthiers)
 
-@app.route('/luthier/<int:luthier_id>/new/')
+
+
+
+# Show a Luthier's Cellos
+
+@app.route('/luthier/<int:luthier_id>/')
+@app.route('/luthier/<int:luthier_id>/cello')
+def showLuthier(luthier_id):
+    luthier = session.query(Luthier).filter_by(id=luthier_id).one()
+    items = session.query(CelloItem).filter_by(luthier_id=luthier.id).all()
+    return render_template('cello.html', items=items, luthier=luthier)
+     
+
+# Create a new Cello listing
+
+@app.route('/luthier/<int:luthier_id>/new/', methods=['GET', 'POST'])
 def newCelloItem(luthier_id):
-    return render_template('newCelloitem.html')
+    if request.method == 'POST':
+        newItem = CelloItem(model=request.form['model'], description=request.form[
+                            'description'], price=request.form['price'], year=request.form[
+                            'year'], country=request.form['country'], classification=request.form[
+                            'classification'], luthier_id=luthier_id)
+        session.add(newItem)
+        session.commit()
+
+        return redirect(url_for('showLuthier', luthier_id=luthier_id))
+    else:
+        return render_template('newCelloitem.html', luthier=luthier)
+
+    return render_template('newCelloitem.html', luthier=luthier)
+
 
 @app.route('/editluthier/')    
 def editLuthier():
@@ -67,15 +95,6 @@ def showCatalogs():
 
 
 
-# Show a Luthier's Cellos
-
-@app.route('/luthier/<int:luthier_id>/')
-@app.route('/luthier/<int:luthier_id>/cello')
-def showCellos(luthier_id):
-    luthier = session.query(Luthier).filter_by(id=luthier_id).one()
-    items = session.query(CelloItem).filter_by(luthier_id=luthier.id).all()
-    return render_template('cello.html', items=items, restaurant=restaurant)
-     
 
 @app.route('/cello/')
 def main():
