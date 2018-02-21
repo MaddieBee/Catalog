@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
-def showIndex():
+def showLuthier():
     luthier = session.query(Luthier).first()
     items = session.query(CelloItem).filter_by(luthier_id=luthier.id)
     output = ''
@@ -32,13 +32,13 @@ def showIndex():
         output += '</br>'       
 
     return output
-
+'''
 @app.route('/luthier/')
-def Luthiers():
-    luthiers = session.query(Luthier).all()
+def Luthier():
+    luthier = session.query(Luthier).all()
     # return "This page will show all of the luthiers"
-    return render_template('luthiers.html', luthiers=luthiers)
-
+    return render_template('luthiers.html', luthier=luthier)
+'''
 
 
 
@@ -46,38 +46,46 @@ def Luthiers():
 
 @app.route('/luthier/<int:luthier_id>/')
 @app.route('/luthier/<int:luthier_id>/cello')
-def showLuthier(luthier_id):
+def showLuthiers(luthier_id):
     luthier = session.query(Luthier).filter_by(id=luthier_id).one()
-    items = session.query(CelloItem).filter_by(luthier_id=luthier.id).all()
+    items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
     return render_template('cello.html', items=items, luthier=luthier)
-     
+ 
+
+@app.route('/cello/<int:luthier_id>/all')
+@app.route('/cellos/')
+def celloItem(luthier_id):
+    cello = session.query(CelloItem).filter_by(id=luthier_id).one()
+    items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
+    return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
+
 
 # Create a new Cello listing
 
 @app.route('/luthier/<int:luthier_id>/new/', methods=['GET', 'POST'])
 def newCelloItem(luthier_id):
     if request.method == 'POST':
-        newItem = CelloItem(model=request.form['model'], description=request.form[
+        newItem = celloItem(model=request.form['model'], description=request.form[
                             'description'], price=request.form['price'], year=request.form[
                             'year'], country=request.form['country'], classification=request.form[
                             'classification'], luthier_id=luthier_id)
         session.add(newItem)
         session.commit()
 
-        return redirect(url_for('showLuthier', luthier_id=luthier_id))
+        return redirect(url_for('showluthier', luthier_id=luthier_id))
     else:
-        return render_template('newCelloitem.html', luthier=luthier)
+        return render_template('newcelloitem.html', luthier=luthier)
 
-    return render_template('newCelloitem.html', luthier=luthier)
+    return render_template('newcelloitem.html', luthier=luthier)
 
 
 @app.route('/editluthier/')    
 def editLuthier():
-    return render_template('editLuthier.html')
+    return render_template('editluthier.html')
 
 @app.route('/deleteluthier/')    
 def deleteLuthier():
-    return render_template('deleteLuthier.html')
+    return render_template('deleteluthier.html')
 
 
 if __name__ == '__main__':
