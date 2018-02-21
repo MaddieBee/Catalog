@@ -20,7 +20,7 @@
 
     {% if listings !=[] %}
 
-		<a href = "{{url_for('newCelloItem', luthier_id = luthier.id )}}">Create New Listing</a>
+		<a href = "{{url_for('newCelloitem', luthier_id = luthier.id )}}">Create New Listing</a>
 	</br></br>
 
 	<h2>Beginner</h2>
@@ -39,9 +39,9 @@
 		<p>{{i.year}}</p>
 		<p>{{i.country}}</p>
 	
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	</br>
-	<a href='{{url_for('deleteMenuItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
 		{% endif %}
@@ -69,9 +69,9 @@
 
 		<p>{{i.country}}</p>
 	
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	</br>
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
         {% endif %}
@@ -100,9 +100,9 @@
 		<p>{{i.country}}</p>
 	
 	
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
 		{% endif %}
@@ -131,9 +131,9 @@
 		<p>{{i.country}}</p>
 	
 
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	</br>
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
 {% endif %}
@@ -144,7 +144,7 @@
 
 		{% else %}
 		<p> You currently have no cello listings. <p>
-		<a href = "{{url_for('newCelloItem', luthier_id = luthier.id )}}">Create New Listing</a>
+		<a href = "{{url_for('newCelloitem', luthier_id = luthier.id )}}">Create New Listing</a>
 			{% endif %}
 </div>
 	</body>
