@@ -33,15 +33,15 @@ def showIndex():
 
     return output
 
-@app.route('/luthier/<int:luthier_id>/new/')
-def newCelloItem(luthier_id):
-    return "page to create a new cello listing. Task 1 complete!"
-
 @app.route('/luthier/')
 def Luthiers():
     luthiers = session.query(Luthier).all()
     # return "This page will show all of the luthiers"
     return render_template('luthiers.html', luthiers=luthiers)
+
+@app.route('/luthier/<int:luthier_id>/new/')
+def newCelloItem(luthier_id):
+    return render_template('newCelloitem.html')
 
 @app.route('/editluthier/')    
 def editLuthier():
