@@ -44,13 +44,13 @@ def Luthier():
 
 # Show a Luthier's Cellos
 
-@app.route('/luthier/<int:luthier_id>/')
+''' @app.route('/luthier/<int:luthier_id>/')
 @app.route('/luthier/<int:luthier_id>/cello')
 def showLuthiers(luthier_id):
     luthier = session.query(Luthier).filter_by(id=luthier_id).one()
     items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
     return render_template('cello.html', items=items, luthier=luthier)
- 
+''' 
 
 @app.route('/cello/<int:luthier_id>/all')
 @app.route('/cellos/')
