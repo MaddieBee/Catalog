@@ -54,9 +54,13 @@ def showLuthiers(luthier_id):
 
 @app.route('/cello/<int:luthier_id>/all')
 @app.route('/cellos/')
-def celloItem(luthier_id):
-    cello = session.query(CelloItem).filter_by(id=luthier_id).one()
-    items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
+def celloItem(luthier_id): 
+    if request.method == 'GET':
+        cello = session.query(CelloItem).filter_by(id=luthier_id).one()
+        items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
+
+        return render_template('cello.html')
+        
     return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
 
 
