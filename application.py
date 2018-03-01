@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Luthier, Base, Cello
+from database_setup import Luthier, Base, Cello, User
 
 engine = create_engine('sqlite:///cellocatalog.db')
 Base.metadata.bind = engine
@@ -32,13 +32,19 @@ def showLuthier():
         output += '</br>'       
 
     return output
-'''
+
+@app.route('/users')
+def showUsers():
+    users = session.query(User).all()
+    return users 
+
+
 @app.route('/luthier/')
-def Luthier():
+def luthier():
     luthier = session.query(Luthier).all()
     # return "This page will show all of the luthiers"
     return render_template('luthiers.html', luthier=luthier)
-'''
+
 
 
 
@@ -59,7 +65,7 @@ def celloItem(luthier_id):
         cello = session.query(Cello).filter_by(id=luthier_id).one()
         items = session.query(Cello).filter_by(luthier_id=luthier.id).all()
 
-        return render_template('cello.html')
+        return render_template('cello.html', cello=cello, items=items)
         
     return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
 

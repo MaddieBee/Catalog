@@ -43,7 +43,7 @@ class Cello(Base):
     year = Column(String(10))
     country = Column(String(80))
     classification = Column(String(80))
-    luthier_id = Column(Integer, ForeignKey('luthier.id'))
+    luthier_id = Column(Integer, ForeignKey('luthiers.id'))
     luthier = relationship(Luthier)
 
     @property
