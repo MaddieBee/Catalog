@@ -7,8 +7,19 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+ 
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    website = Column(String(250), nullable=False)
+    picture = Column(String(400))
+
+
 class Luthier(Base):
-    __tablename__ = 'luthier'
+    __tablename__ = 'luthiers'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -22,8 +33,8 @@ class Luthier(Base):
         }
 
 
-class CelloItem(Base):
-    __tablename__ = 'cello_item'
+class Cello(Base):
+    __tablename__ = 'cellos'
 
     model = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
@@ -52,12 +63,5 @@ engine = create_engine('sqlite:///cellocatalog.db')
 
 Base.metadata.create_all(engine)
 
-''' class User(Base):
-    __tablename__ = 'user'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    email = Column(String(250), nullable=False)
-    picture = Column(String)
-'''
 

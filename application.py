@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Luthier, Base, CelloItem
+from database_setup import Luthier, Base, Cello
 
 engine = create_engine('sqlite:///cellocatalog.db')
 Base.metadata.bind = engine
@@ -18,7 +18,7 @@ app = Flask(__name__)
 @app.route('/index', methods=['GET', 'POST'])
 def showLuthier():
     luthier = session.query(Luthier).first()
-    items = session.query(CelloItem).filter_by(luthier_id=luthier.id)
+    items = session.query(Cello).filter_by(luthier_id=luthier.id)
     output = ''
     for i in items:
         output += "Model:  " + i.model 
@@ -56,8 +56,8 @@ def showLuthiers(luthier_id):
 @app.route('/cellos/')
 def celloItem(luthier_id): 
     if request.method == 'GET':
-        cello = session.query(CelloItem).filter_by(id=luthier_id).one()
-        items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
+        cello = session.query(Cello).filter_by(id=luthier_id).one()
+        items = session.query(Cello).filter_by(luthier_id=luthier.id).all()
 
         return render_template('cello.html')
         
