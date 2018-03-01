@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Luthier, Base, Cello, User
 
+from flask import session as login_session 
+
 engine = create_engine('sqlite:///cellocatalog.db')
 Base.metadata.bind = engine
 
@@ -33,19 +35,44 @@ def showLuthier():
 
     return output
 
+
+
+
+@app.route('/editluthier/')    
+def editLuthier():
+    return render_template('editluthier.html')
+
+
+
+@app.route('/deleteluthier/')    
+def deleteLuthier():
+    return render_template('deleteluthier.html')
+
+'''
+ERROR list object is not callable
+
 @app.route('/users')
 def showUsers():
     users = session.query(User).all()
     return users 
+'''
 
+
+
+
+'''
+
+ERROR - BuildError: Could not build url for endpoint 'Luthiers'. Did you mean 'luthier' instead?
+
+# Loads the error page
 
 @app.route('/luthier/')
 def luthier():
-    luthier = session.query(Luthier).all()
+    luthiers = session.query(Luthier).all()
     # return "This page will show all of the luthiers"
-    return render_template('luthiers.html', luthier=luthier)
+    return render_template('luthiers.html', luthiers=luthiers)
 
-
+'''
 
 
 # Show a Luthier's Cellos
@@ -58,19 +85,33 @@ def showLuthiers(luthier_id):
     return render_template('cello.html', items=items, luthier=luthier)
 ''' 
 
+
+'''
 @app.route('/cello/<int:luthier_id>/all')
 @app.route('/cellos/')
-def celloItem(luthier_id): 
+def celloItem(): 
     if request.method == 'GET':
-        cello = session.query(Cello).filter_by(id=luthier_id).one()
+        cellos = session.query(Cello).filter_by(id=luthier_id, luthier=luthier).one()
         items = session.query(Cello).filter_by(luthier_id=luthier.id).all()
 
-        return render_template('cello.html', cello=cello, items=items)
+        return render_template('cello.html', cellos=cellos, items=items)
         
     return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
+'''
 
 
-# Create a new Cello listing
+
+
+
+
+
+
+
+
+
+
+
+# Create a new Cello listing   THIS WORKS (at least a little bit)
 
 @app.route('/luthier/<int:luthier_id>/new/', methods=['GET', 'POST'])
 def newCelloItem(luthier_id):
@@ -89,13 +130,11 @@ def newCelloItem(luthier_id):
     return render_template('newcelloitem.html', luthier=luthier)
 
 
-@app.route('/editluthier/')    
-def editLuthier():
-    return render_template('editluthier.html')
 
-@app.route('/deleteluthier/')    
-def deleteLuthier():
-    return render_template('deleteluthier.html')
+
+
+
+
 
 
 if __name__ == '__main__':
