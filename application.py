@@ -8,13 +8,14 @@ from database_setup import Luthier, Base, Cello, User
 
 from flask import session as login_session 
 
+app = Flask(__name__)
+
 engine = create_engine('sqlite:///cellocatalog.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-app = Flask(__name__)
 
 # Main Page.  Displays all Luthier's cellos.  WELL????
 
@@ -105,13 +106,29 @@ def celloItem():
 
 
 
-
-
-
-
-
-
-
+@app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
+           methods=['GET', 'POST'])
+def editCelloItem(luthier_id, cello_id):
+    editedItem = session.query(CelloItem).filter_by(id=cello_id).one()
+    if request.method == 'POST':
+        if request.form['model']:
+            editedItem.model = request.form['model']
+        if request.form['description']:
+            editedItem.description = request.form['description']
+        if request.form['price']:
+            editedItem.price = request.form['price']
+        if request.form['year']:
+            editedItem.year = request.form['year']
+        if request.form['country']:
+            editedItem.country = request.form['country']
+        if request.form['classification']:
+            editedItem.classification = request.form['classification']
+        session.add(editedItem)
+        session.commit()
+        return redirect(url_for('luthierInventory', luthier_id=luthier_id))
+    else:
+        return render_template(
+            'editcelloitem.html', luthier_id=luthier_id, cello_id=cello_id, item=editedItem)
 
 # Create a new Cello listing   THIS WORKS (at least a little bit)
 

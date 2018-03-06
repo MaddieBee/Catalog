@@ -6,20 +6,21 @@
 
 <body><h1> Edit Cello Item </h1>
 
-<form action="#" method = 'post'>
+<form action="{{ url_for('editCelloItem',luthier_id = luthier_id, cello_id=item.id)}}" method = 'post'>
 
+<dl>
 
-	<p>Model:</p>
-		<input type ='text' size='30' name='model' placeholder = '{{item.model }}'>
-	<p>Description:</p>
-		<input type ='text' size='30' name='description' placeholder = '{{item.description}}'>
-	<p>Price:</p>
-		<input type ='text' size='30' name='price' placeholder = '{{item.price}}'>
-	<p>Year:</p>
-		<input type ='text' size='30' name='year' placeholder = '{{item.year}}'>	
-	<p>Country:</p>
-		<input type ='text' size='30' name='country' placeholder = '{{item.country}}'>		
-	<p>Classification:</p>
+	<dt>Model:</dt>
+		<dd><input type ='text' size='30' name='model' placeholder = '{{item.model }}'></dd>
+	<dt>Description:</dt>
+		<dd><input type ='text' size='30' name='description' placeholder = '{{item.description}}'></dd>
+	<dt>Price:</dt>
+		<dd><input type ='text' size='30' name='price' placeholder = '{{item.price}}'></dd>
+	<dt>Year:</dt>
+		<dd><input type ='text' size='30' name='year' placeholder = '{{item.year}}'></dd>	
+	<dt>Country:</dt>
+		<dd><input type ='text' size='30' name='country' placeholder = '{{item.country}}'></dd>		
+	<dt>Classification:</dt>
 
 	{% if item.classification == 'Appetizer' %}
 			<dd><input type ='radio' name='classification' value='Beginner' checked>Beginner</dd>
@@ -50,10 +51,12 @@
 			<dd><input type ='radio' name='classification' value='Master'>Master</dd>
 		{% endif %}
 
+</dl>
+
 <input type='submit' value='Edit'>
 
 
-<a href = '#'> OOPS!  JK JK! </a>
+<a href = '{{ url_for('luthierInventory',luthier_id = luthier_id)}}'> OOPS!  JK JK! </a>
 
 
 </form>
