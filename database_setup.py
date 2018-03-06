@@ -48,7 +48,7 @@ class Cello(Base):
 
     @property
     def serialize(self):
-        """Return object data in easily serializeable format"""
+        """Return object data in easily serializeable format."""
         return {
             'model': self.model,
             'description': self.description,
