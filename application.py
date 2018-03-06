@@ -55,7 +55,7 @@ ERROR list object is not callable
 
 @app.route('/users')
 def showUsers():
-    users = session.query(User).all()
+    users = session.query(User).all()   Testing
     return users 
 '''
 
