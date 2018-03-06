@@ -17,7 +17,7 @@ app = Flask(__name__)
 # Main Page.  Displays all Luthier's cellos.  
 
 @app.route('/')
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET'])
 def showLuthier():
     luthier = session.query(Luthier).first()
     items = session.query(Cello).filter_by(luthier_id=luthier.id)
