@@ -39,6 +39,18 @@ def showLuthier():
     return output
 
 
+@app.route('/cellos/')
+def showCellos():
+    cellos = session.query(Cello.id,
+                            Cello.model,
+                            Cello.description,
+                            Cello.price,
+                            Cello.year,
+                            Cello.country,
+                            Cello.classification).all()
+    print("Well, at least I tried even if this is shit")
+    return render_template('cellos.html', cellos=cellos)
+
 
 @app.route('/editluthier/')    
 def editLuthier():
@@ -144,7 +156,7 @@ def newCelloItem():
         session.commit()
 
         print("Okay so did we get this far?")
-        return redirect(url_for('showluthier', luthier_id=luthier_id))
+        return redirect(url_for('newCelloItem.html'))
     else:
         return render_template('newcelloitem.html')
 
