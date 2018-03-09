@@ -40,7 +40,6 @@ def showLuthier():
 
 
 
-
 @app.route('/editluthier/')    
 def editLuthier():
     return render_template('editluthier.html')
@@ -135,13 +134,16 @@ def editCelloItem(luthier_id, cello_id):
 @app.route('/luthier/new/', methods=['GET', 'POST'])
 def newCelloItem():
     if request.method == 'POST':
-        newItem = celloItem(model=request.form['model'], description=request.form[
-                            'description'], price=request.form['price'], year=request.form[
-                            'year'], country=request.form['country'], classification=request.form[
-                            'classification'])
+        newItem = celloItem(model=request.form['model'],
+                            description=request.form['description'],
+                            price=request.form['price'],
+                            year=request.form['year'],
+                            country=request.form['country'],
+                            classification=request.form['classification'])
         session.add(newItem)
         session.commit()
 
+        print("Okay so did we get this far?")
         return redirect(url_for('showluthier', luthier_id=luthier_id))
     else:
         return render_template('newcelloitem.html')
