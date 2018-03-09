@@ -133,12 +133,12 @@ def editCelloItem(luthier_id, cello_id):
 # Create a new Cello listing   THIS WORKS (at least a little bit)
 
 @app.route('/luthier/new/', methods=['GET', 'POST'])
-def newCelloItem(luthier_id):
+def newCelloItem():
     if request.method == 'POST':
         newItem = celloItem(model=request.form['model'], description=request.form[
                             'description'], price=request.form['price'], year=request.form[
                             'year'], country=request.form['country'], classification=request.form[
-                            'classification'], luthier_id=luthier_id)
+                            'classification'])
         session.add(newItem)
         session.commit()
 
