@@ -67,7 +67,7 @@ def showUsers():
 Turkeybutt
 ERROR - BuildError: Could not build url for endpoint 'Luthiers'. Did you mean 'luthier' instead?
 
-# Loads the error page
+# Loads the error pag
 
 @app.route('/luthier/')
 def luthier():
@@ -132,7 +132,7 @@ def editCelloItem(luthier_id, cello_id):
 
 # Create a new Cello listing   THIS WORKS (at least a little bit)
 
-@app.route('/luthier/<int:luthier_id>/new/', methods=['GET', 'POST'])
+@app.route('/luthier/new/', methods=['GET', 'POST'])
 def newCelloItem(luthier_id):
     if request.method == 'POST':
         newItem = celloItem(model=request.form['model'], description=request.form[
@@ -144,9 +144,9 @@ def newCelloItem(luthier_id):
 
         return redirect(url_for('showluthier', luthier_id=luthier_id))
     else:
-        return render_template('newcelloitem.html', luthier=luthier)
+        return render_template('newcelloitem.html')
 
-    return render_template('newcelloitem.html', luthier=luthier)
+    return render_template('newcelloitem.html')
 
 
 
