@@ -174,7 +174,10 @@ def newCelloItem():
     return render_template('newcelloitem.html')
 
 
-
+@app.route('/cello/')
+def main():
+    print("cello.html page")
+    return render_template('cello.html')
 
 
 
@@ -197,9 +200,7 @@ def showCatalogs():
 
 
 
-@app.route('/cello/')
-def main():
-    return render_template('celloitem.html')
+
 
 @app.route('/luthier/')
 def showLuthiers():
