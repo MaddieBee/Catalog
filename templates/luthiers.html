@@ -9,13 +9,13 @@
 <div class = 'pane'>
 <h1>Luthiers</h1>
 
-<a href="{{url_for('Luthiers')}}" > <h3> Add A New Luthier </h3> </a>
+<a href="{{url_for('newLuthier')}}" > <h3> Add A New Luthier </h3> </a>
 
 {% for luthier in luthiers %}
 
 
 
-<a href = "{{url_for('Luthiers', luthier_id = luthier.id)}}"> <p><strong>{{luthier.name}}</strong></p></a>
+<a href = "{{url_for('showLuthier', luthier_id = luthier.id)}}"> <p><strong>{{luthier.name}}</strong></p></a>
 
 
 <p><a href = "{{url_for('editLuthier',luthier_id = luthier.id)}}">Edit Luthier</a></p>

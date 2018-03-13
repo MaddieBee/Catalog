@@ -21,9 +21,9 @@ session = DBSession()
 
 @app.route('/')
 @app.route('/index', methods=['GET'])
-def showLuthier():
+def showLuthiers():
     luthier = session.query(Luthier).first()
-    items = session.query(Cello).filter_by(luthier_id=luthier.id)
+    items = session.query(Cello).filter_by(luthier_id=luthier.id, luthier=luthier)
     output = ''
     for i in items:
         output += "Model:  " + i.model 
@@ -52,13 +52,13 @@ def showCellos():
     return render_template('cellos.html', cellos=cellos)
 
 
-@app.route('/editluthier/')    
+@app.route('/edit/')    
 def editLuthier():
     return render_template('editluthier.html')
 
 
 
-@app.route('/deleteluthier/')    
+@app.route('/delete/')    
 def deleteLuthier():
     return render_template('deleteluthier.html')
 
@@ -114,7 +114,18 @@ def celloItem():
 '''
 
 
-
+# Add a new Luthier
+@app.route('/luthier/new/', methods=['GET', 'POST'])
+def newLuthier():
+    if request.method == 'POST':
+        newLuthier = Luthier(name=request.form['name'])
+        session.add(newLuthier)
+        session.commit()
+        print("Is this even working new luthiers?")
+        return redirect(url_for('showLuthiers'))
+    else:
+        return render_template('newluthier.html')
+    # return "This page will be for adding a new Luthier"
 
 
 @app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
