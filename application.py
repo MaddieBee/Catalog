@@ -48,7 +48,7 @@ def showCellos():
                             Cello.year,
                             Cello.country,
                             Cello.classification).all()
-    print("Well, at least I tried even if this is shit")
+    print("Well, at least I tried")
     return render_template('cellos.html', cellos=cellos)
 
 
