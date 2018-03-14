@@ -39,7 +39,7 @@ def showLuthiers():
     return output
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/home/", methods=["GET", "POST"])
 def home():
     if request.form:
         print(request.form)
