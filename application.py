@@ -39,6 +39,12 @@ def showLuthiers():
     return output
 
 
+@app.route("/home/", methods=["GET", "POST"])
+def home():
+    if request.form:
+        print(request.form)
+    return render_template("home.html")
+
 @app.route('/cellos/')
 def showCellos():
     cellos = session.query(Cello.id,
