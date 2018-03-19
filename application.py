@@ -35,8 +35,10 @@ def showLuthiers():
         output += "Price  " + i.price 
         output += '</br>'       
         output += '</br>'       
+        print("suck it, bitch")
+    return output + "suck it bitch"
 
-    return output
+    print("suck it, bitch")
 
 
 @app.route("/home/", methods=["GET", "POST"])
