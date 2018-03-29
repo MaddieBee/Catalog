@@ -32,7 +32,7 @@ session = DBSession()
 
 
 @app.route('/login')
-def showLogin():
+def showlogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in range(32))
     login_session['state'] = state
@@ -41,7 +41,7 @@ def showLogin():
 
 @app.route('/')
 @app.route('/index', methods=['GET'])
-def showLuthiers():
+def showluthiers():
     luthier = session.query(Luthier).first()
     items = session.query(Cello).filter_by(luthier_id=luthier.id, luthier=luthier)
     output = ''
@@ -68,7 +68,7 @@ def home():
     return render_template("home.html")
 
 @app.route('/cellos/')
-def showCellos():
+def showcellos():
     cellos = session.query(Cello.id,
                             Cello.model,
                             Cello.description,
@@ -81,13 +81,13 @@ def showCellos():
 
 
 @app.route('/edit/')    
-def editLuthier():
+def editluthier():
     return render_template('editluthier.html')
 
 
 
 @app.route('/delete/')    
-def deleteLuthier():
+def deleteluthier():
     return render_template('deleteluthier.html')
 
 '''
@@ -144,10 +144,10 @@ def celloItem():
 
 # Add a new Luthier
 @app.route('/luthier/new/', methods=['GET', 'POST'])
-def newLuthier():
+def newluthier():
     if request.method == 'POST':
-        newLuthier = Luthier(name=request.form['name'])
-        session.add(newLuthier)
+        newluthier: Luthier = Luthier(name=request.form['name'])
+        session.add(newluthier)
         session.commit()
         print("Is this even working new luthiers?")
         return redirect(url_for('showLuthiers'))
@@ -158,48 +158,48 @@ def newLuthier():
 
 @app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
            methods=['GET', 'POST'])
-def editCelloItem(luthier_id, cello_id):
-    editedItem = session.query(CelloItem).filter_by(id=cello_id).one()
+def editcelloitem(luthier_id, cello_id, editeditem=editcelloitem):
+    editeditem = session.query(cello_id).filter_by(id=cello_id).one()
     if request.method == 'POST':
         if request.form['model']:
-            editedItem.model = request.form['model']
+            editeditem.model = request.form['model']
         if request.form['description']:
-            editedItem.description = request.form['description']
+            editeditem.description = request.form['description']
         if request.form['price']:
-            editedItem.price = request.form['price']
+            editeditem.price = request.form['price']
         if request.form['year']:
-            editedItem.year = request.form['year']
+            editeditem.year = request.form['year']
         if request.form['country']:
-            editedItem.country = request.form['country']
+            editeditem.country = request.form['country']
         if request.form['classification']:
-            editedItem.classification = request.form['classification']
-        session.add(editedItem)
+            editeditem.classification = request.form['classification']
+        session.add(editeditem)
         session.commit()
-        return redirect(url_for('luthierInventory', luthier_id=luthier_id))
+        return redirect(url_for("editcelloitem.html", luthier_id=luthier_id))
     else:
         return render_template(
-            'editcelloitem.html', luthier_id=luthier_id, cello_id=cello_id, item=editedItem)
+            'editcelloitem.html', luthier_id=luthier_id, cello_id=cello_id, item=editeditem)
 
 # Create a new Cello listing   THIS WORKS (at least a little bit)
 
 @app.route('/luthier/new/', methods=['GET', 'POST'])
-def newCelloItem():
+def newcelloitem():
     if request.method == 'POST':
-        newItem = celloItem(model=request.form['model'],
+        newitem = newcelloitem.item(model=request.form['model'],
                             description=request.form['description'],
                             price=request.form['price'],
                             year=request.form['year'],
                             country=request.form['country'],
                             classification=request.form['classification'])
-        session.add(newItem)
+        session.add(newitem)
         session.commit()
 
         print("Okay so did we get this far?")
-        return redirect(url_for('newCelloItem.html'))
+        return redirect(url_for('newcelloitem.html'))
     else:
         return render_template('newcelloitem.html')
 
-    return render_template('newcelloitem.html')
+    """return render_template('newcelloitem.html')"""
 
 
 @app.route('/cello/')
