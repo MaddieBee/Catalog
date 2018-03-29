@@ -16,10 +16,27 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-629">
+              <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="database_setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database_setup.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+              <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manycellos.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manycellos.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4229">
               <folding>
-                <element signature="e#24#101#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,7 +165,7 @@
     <frame x="2638" y="13" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3299435" />
@@ -156,7 +173,7 @@
       <window_info anchor="bottom" id="Python Console" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -182,13 +199,26 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app.py">
+    <entry file="file://$PROJECT_DIR$/manycellos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4229">
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database_setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#24#101#0" expanded="true" />
-          </folding>
+          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-629">
+          <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
         </state>
       </provider>
     </entry>
