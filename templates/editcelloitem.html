@@ -6,7 +6,7 @@
 
 <body><h1> Edit Cello Item </h1>
 
-<form action="{{ url_for('editCelloItem',luthier_id = luthier_id, cello_id=item.id)}}" method = 'post'>
+<form action="{{ url_for('editcelloitem',luthier_id = luthier_id, cello_id=item.id)}}" method = 'post'>
 
 <dl>
 
@@ -56,7 +56,7 @@
 <input type='submit' value='Edit'>
 
 
-<a href = '{{ url_for('luthierInventory',luthier_id = luthier_id)}}'> OOPS!  JK JK! </a>
+<a href = '{{ url_for('luthierinventory',luthier_id = luthier_id)}}'> OOPS!  JK JK! </a>
 
 
 </form>

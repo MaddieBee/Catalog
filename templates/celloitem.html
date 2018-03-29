@@ -20,7 +20,7 @@
 
     {% if listings !=[] %}
 
-		<a href = "{{url_for('newCelloItem', luthier_id = luthier.id )}}">Create New Listing</a>
+		<a href = "{{url_for('newcelloitem', luthier_id = luthier.id )}}">Create New Listing</a>
 	</br></br>
 
 	<h2>Beginner</h2>
@@ -144,7 +144,7 @@
 
 		{% else %}
 		<p> You currently have no cello listings. <p>
-		<a href = "{{url_for('newCelloitem', luthier_id = luthier.id )}}">Create New Listing</a>
+		<a href = "{{url_for('newcelloitem', luthier_id = luthier.id )}}">Create New Listing</a>
 			{% endif %}
 </div>
 	</body>

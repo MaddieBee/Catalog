@@ -25,7 +25,7 @@
     {% if items !=[] %}
 
 
-		<a href = "{{url_for('newCelloItem', luthier_id = luthier.id )}}">List New Cello</a>
+		<a href = "{{url_for('newcelloitem', luthier_id = luthier.id )}}">List New Cello</a>
 
 		
 	</br></br>
@@ -46,9 +46,9 @@
 		<p>{{i.year}}</p>
 		<p>{{i.country}}</p>
 	
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	</br>
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
 		{% endif %}
@@ -76,9 +76,9 @@
 
 		<p>{{i.country}}</p>
 	
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
-	</br>
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+	</br>4
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
         {% endif %}
@@ -107,9 +107,9 @@
 		<p>{{i.country}}</p>
 	
 	
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
 		{% endif %}
@@ -138,9 +138,9 @@
 		<p>{{i.country}}</p>
 	
 
-		<a href='{{url_for('editCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
+		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Edit</a>
 	</br>
-	<a href='{{url_for('deleteCelloItem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
+	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, cello_id=i.id ) }}' >Delete</a>
 </br>
 </br>
 {% endif %}

@@ -158,7 +158,7 @@ def newluthier():
 
 @app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
            methods=['GET', 'POST'])
-def editcelloitem(luthier_id, cello_id, editeditem=editcelloitem):
+def editcelloitem(luthier_id, cello_id):
     editeditem = session.query(cello_id).filter_by(id=cello_id).one()
     if request.method == 'POST':
         if request.form['model']:
