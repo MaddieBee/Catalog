@@ -155,7 +155,7 @@ def celloItem():
 @app.route('/luthier/new/', methods=['GET', 'POST'])
 def newluthier():
     if request.method == 'POST':
-        newluthier: Luthier = Luthier(name=request.form['name'])
+        newluthier = Luthier(name=request.form['name'])
         session.add(newluthier)
         session.commit()
         print("Is this even working new luthiers?")
