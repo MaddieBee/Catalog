@@ -109,7 +109,16 @@ def showUsers():
 '''
 
 
-
+@app.route('/luthier/<int:luthier_id>/cellos/')
+def show_cellos(luthier_id):
+    manufacturer = session.query(
+        Manufacturer).filter_by(id=luthier_id).one()
+    cellos = session.query(Cello).filter_by(
+        luthier_id=luthier_id).all()
+    if 'username' in login_session:
+        return render_template('luthiercellos.html', luthier=luthier, cellos=cellos)
+    else:
+        return render_template('public_manufacturer_consoles.html', manufacturer=manufacturer, consoles=consoles)
 
 '''
 Turkeybutt
