@@ -1,0 +1,29 @@
+{% extends "main.html" %} 
+{% block content %} 
+<div class="container">
+    <h1>Luthiers</h1>
+
+</div>
+
+<div class="Crap about the Luthier">
+    <div class="container">
+        <div class="row">
+            {% for luthier in luthiers %}
+
+            
+                
+                <div class="card-body">
+                    <h4 class="card-title">{{ luthier.name }}</h4>
+                   
+                </div>
+                
+                     <a href="{{url_for('show_cellos', luthier_id = luthier.id)}}">Show Cellos</a>
+                
+                
+            
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

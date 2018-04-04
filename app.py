@@ -50,7 +50,7 @@ def showLogin():
     return render_template('login.html', STATE=state)
 
 
-@app.route('/')
+
 @app.route('/index', methods=['GET'])
 def showluthiers():
     luthier = session.query(Luthier).first()
@@ -89,6 +89,13 @@ def showcellos():
     return render_template('cellos.html', cellos=cellos)
 
 
+@app.route('/cellos/JSON')
+def cellos_json():
+    """Show all consoles as JSON"""
+    cellos = session.query(Cello).all()
+    return jsonify(luthiers=[c.serialize for c in cellos])
+
+
 @app.route('/edit/')    
 def editluthier():
     return render_template('editluthier.html')
@@ -108,17 +115,37 @@ def showUsers():
     return users 
 '''
 
+@app.route('/')
+@app.route('/luthiers/')
+def show_luthiers():
+    """Show all manufacturers. If user is logged user can add, edit and delete manufacturers"""
+    luthiers = session.query(Luthier).all()
+    if 'username' in login_session:
+        return render_template('luthiers.html', luthiers=luthiers)
+    else:
+        return render_template('publicluthiers.html', luthiers=luthiers)
+
+
+
+@app.route('/luthiers/JSON')
+def luthiers_json():
+    """Show all luthiers as JSON"""
+    luthiers = session.query(Luthier).all()
+    return jsonify(luthiers=[l.serialize for l in luthiers])
+
+
+
 
 @app.route('/luthier/<int:luthier_id>/cellos/')
 def show_cellos(luthier_id):
     manufacturer = session.query(
-        Manufacturer).filter_by(id=luthier_id).one()
+        Luthier).filter_by(id=luthier_id).one()
     cellos = session.query(Cello).filter_by(
         luthier_id=luthier_id).all()
     if 'username' in login_session:
         return render_template('luthiercellos.html', luthier=luthier, cellos=cellos)
     else:
-        return render_template('public_manufacturer_consoles.html', manufacturer=manufacturer, consoles=consoles)
+        return render_template('publicluthiercellos.html', luthier=luthier, cellos=cellos)
 
 '''
 Turkeybutt

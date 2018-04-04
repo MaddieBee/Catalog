@@ -6,7 +6,7 @@
 
 <body><h1> Edit Cello Item </h1>
 
-<form action="{{ url_for('editcello',luthier_id = luthier_id, cello_id=item.id)}}" method = 'post'>
+<form action="{{ url_for('editcello',luthier_id = luthier_id, cello_id=luthier.id)}}" method = 'post'>
 
 <dl>
 
@@ -22,21 +22,21 @@
 		<dd><input type ='text' size='30' name='country' placeholder = '{{item.country}}'></dd>		
 	<dt>Classification:</dt>
 
-	{% if item.classification == 'Appetizer' %}
+	{% if item.classification == 'Beginner' %}
 			<dd><input type ='radio' name='classification' value='Beginner' checked>Beginner</dd>
 		
 		{%else%}
 		<dd><input type ='radio' name='classification' value='Beginner' >Beginner</dd>
 	    {% endif %}
 
-	    {% if item.classification == 'Entree' %}
+	    {% if item.classification == 'Student' %}
 	       <dd><input type ='radio' name='classification' value='Student' checked>Student</dd>
 
 	    {%else%}
 			<dd><input type ='radio' name='classification' value='Student'>Student</dd>
 	    {% endif %}
 
-		{% if item.classification == 'Dessert'%}
+		{% if item.classification == 'Advanced'%}
 			<dd><input type ='radio' name='classification' value='Advanced' checked>Advanced</dd>
 
 		{% else %}
@@ -45,7 +45,7 @@
 		{% endif %}
 
 
-		{%if item.classification =='Beverage'%}
+		{%if item.classification =='Master'%}
 			<dd><input type ='radio' name='classification' value='Master' checked>Master</dd>
 		{% else %}
 			<dd><input type ='radio' name='classification' value='Master'>Master</dd>
@@ -56,7 +56,7 @@
 <input type='submit' value='Edit'>
 
 
-<a href = "{{ url_for('luthierinventory',luthier_id = luthier_id)}}"> OOPS!  JK JK! </a>
+<a href = "{{ url_for('publicluthiercellos',luthier_id = luthier_id)}}"> OOPS!  JK JK! </a>
 
 
 </form>

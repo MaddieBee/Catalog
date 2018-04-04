@@ -12,8 +12,7 @@
                     <th>Model</th>
                     <th>Year Built</th>
                     <th>Country of Origin</th>
-                    <th>Price</th>  
-                    <th>Links</th>                          
+                    <th>Price</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +22,6 @@
                     <td class="align-middle">{{ cello.year }}</td>
                     <td class="align-middle">{{ cello.country }}</td>                    
                     <td class="align-middle">{{ cello.price }}</td>                    
-                    <td><a href="{{url_for('editcello', cello_id = cello.id)}}" class="card-link">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
