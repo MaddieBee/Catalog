@@ -74,7 +74,7 @@ def showluthiers():
 def home():
     if request.form:
         print(request.form)
-    return render_template("home.html")
+    return render_template("main.html")
 
 @app.route('/cellos/')
 def showcellos():
@@ -167,7 +167,7 @@ def newluthier():
 
 @app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
            methods=['GET', 'POST'])
-def editcelloitem(luthier_id, cello_id):
+def editcello(luthier_id, cello_id):
     editeditem = session.query(cello_id).filter_by(id=cello_id).one()
     if request.method == 'POST':
         if request.form['model']:
@@ -184,17 +184,17 @@ def editcelloitem(luthier_id, cello_id):
             editeditem.classification = request.form['classification']
         session.add(editeditem)
         session.commit()
-        return redirect(url_for("editcelloitem.html", luthier_id=luthier_id))
+        return redirect(url_for("editcello.html", luthier_id=luthier_id))
     else:
         return render_template(
-            'editcelloitem.html', luthier_id=luthier_id, cello_id=cello_id, item=editeditem)
+            'editcello.html', luthier_id=luthier_id, cello_id=cello_id, item=editeditem)
 
 # Create a new Cello listing   THIS WORKS (at least a little bit)
 
 @app.route('/luthier/new/', methods=['GET', 'POST'])
-def newcelloitem():
+def newcello():
     if request.method == 'POST':
-        newitem = newcelloitem.item(model=request.form['model'],
+        newitem = newcello.item(model=request.form['model'],
                             description=request.form['description'],
                             price=request.form['price'],
                             year=request.form['year'],
@@ -204,17 +204,17 @@ def newcelloitem():
         session.commit()
 
         print("Okay so did we get this far?")
-        return redirect(url_for('newcelloitem.html'))
+        return redirect(url_for('newcello.html'))
     else:
-        return render_template('newcelloitem.html')
+        return render_template('newcello.html')
 
     """return render_template('newcelloitem.html')"""
 
 
-@app.route('/cello/')
+@app.route('/main/')
 def main():
     print("cello.html page")
-    return render_template('cello.html')
+    return render_template('main.html')
 
 
 
