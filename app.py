@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, jsonify, url_for
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -31,13 +31,23 @@ session = DBSession()
 # Main Page.  Displays all Luthier's cellos.  WELL????
 
 
-@app.route('/login')
+''' @app.route('/login')
 def showlogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in range(32))
     login_session['state'] = state 
-    return "The current session state is %s" % login_session('state', STATE=state)
+    return "The current session state is %s" % login_session('state', STATE=state) '''
 
+
+
+# Create anti-forgery state token
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in range(32))
+    login_session['state'] = state
+    # return "The current session state is %s" % login_session['state']
+    return render_template('login.html', STATE=state)
 
 
 @app.route('/')
@@ -56,10 +66,8 @@ def showluthiers():
         output += "Price  " + i.price 
         output += '</br>'       
         output += '</br>'       
-        print("suck it, bitch")
-    return output + "suck it bitch"
-
-    print("suck it, bitch")
+        print("well, outputs?")
+    return output 
 
 
 @app.route("/home/", methods=["GET", "POST"])
