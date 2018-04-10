@@ -6,6 +6,21 @@ div#main {
     font-family: sans-serif;
 }
 
+
+a:link {
+	color: blue
+	}
+
+a:visited {
+	color: #2554ff;
+	}
+
+a:active {
+	color: orange
+	}
+
+
+
 body {
 	background-color: #c3fce6; 
 }
