@@ -227,7 +227,7 @@ def editcello(luthier_id, cello_id):
 
 # Create a new Cello listing   THIS WORKS (at least a little bit)
 
-@app.route('/luthier/new/', methods=['GET', 'POST'])
+@app.route('/cello/new/', methods=['GET', 'POST'])
 def newcello():
     if request.method == 'POST':
         newitem = newcello.item(model=request.form['model'],
@@ -243,8 +243,6 @@ def newcello():
         return redirect(url_for('newcello.html'))
     else:
         return render_template('newcello.html')
-
-    """return render_template('newcelloitem.html')"""
 
 
 @app.route('/main/')
