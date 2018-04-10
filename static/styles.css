@@ -6,6 +6,17 @@ div#main {
     font-family: sans-serif;
 }
 
+div#luthiername {
+	font-family: serif;
+	font-style: italic;
+	font-weight: bolder;
+}
+
+
+div#container2 {
+	font-style: italic;
+
+}
 
 a:link {
 	color: blue

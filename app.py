@@ -143,9 +143,9 @@ def show_cellos(luthier_id):
     cellos = session.query(Cello).filter_by(
         luthier_id=luthier_id).all()
     if 'username' in login_session:
-        return render_template('luthiercellos.html', luthier=luthier, cellos=cellos)
+        return render_template('luthiercellos.html', luthier=Luthier.id, cellos=cellos)
     else:
-        return render_template('publicluthiercellos.html', luthier=luthier, cellos=cellos)
+        return render_template('publicluthiercellos.html', luthier=Luthier.id, cellos=cellos)
 
 '''
 Turkeybutt

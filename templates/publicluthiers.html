@@ -5,25 +5,17 @@
 
 </div>
 
-<div class="Crap about the Luthier">
-    <div class="container">
-        <div class="row">
+<div class="luthiername">
+    <div class="container2">
+           
+        <span>
             {% for luthier in luthiers %}
-
-            
-                
-                <div class="card-body">
-                    <h4 class="card-title">{{ luthier.name }}</h4>
-                   
-                </div>
-                
-                     <a href="{{url_for('show_cellos', luthier_id = luthier.id)}}">Show Cellos</a>
-                
-                
-            
+                    
+            <h4>{{ luthier.name }}</h4>
+            <a href="{{url_for('show_cellos', luthier_id = luthier.id)}}">     Show Cellos</a>
+               
             {% endfor %}
-
-        </div>
+        </span>   
     </div>
 </div>
 {% endblock %}
