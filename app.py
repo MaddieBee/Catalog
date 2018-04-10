@@ -195,7 +195,7 @@ def newluthier():
         session.add(newluthier)
         session.commit()
         print("Is this even working new luthiers?")
-        return redirect(url_for('showLuthiers'))
+        return redirect(url_for('showluthiers'))
     else:
         return render_template('newluthier.html')
     # return "This page will be for adding a new Luthier"
