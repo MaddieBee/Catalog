@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask, render_template, request, redirect, jsonify, url_for, g, flash
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -15,10 +15,12 @@ import json
 from flask import make_response
 import requests 
 
-app = Flask(__name__)
 
-CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+from flask_httpauth import HTTPBasicAuth
+auth = HTTPBasicAuth()
+
+
+
 APPLICATION_NAME = "Cello Catalog"
 
 engine = create_engine('sqlite:///cellocatalog.db')
@@ -26,6 +28,26 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+app = Flask(__name__)
+
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
+
+
+
+@auth.verify_password
+def verify_password(username_or_token, password):
+    #Try to see if it's a token first
+    user_id = User.verify_auth_token(username_or_token)
+    if user_id:
+        user = session.query(User).filter_by(id = user_id).one()
+    else:
+        user = session.query(User).filter_by(username = username_or_token).first()
+        if not user or not user.verify_password(password):
+            return False
+    g.user = user
+    return True
 
 
 # Create anti-forgery state tokens
@@ -36,6 +58,8 @@ def showLogin():
     login_session['state'] = state
     #return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
+
+
 
 
 @app.route('/gconnect', methods=['POST'])
@@ -83,7 +107,7 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps("Token's client ID does not match app's."), 401)
-        print "Token's client ID does not match app's."
+        print (response)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -99,16 +123,27 @@ def gconnect():
     login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
-    # Get user info
-    userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
-    params = {'access_token': credentials.access_token, 'alt': 'json'}
-    answer = requests.get(userinfo_url, params=params)
 
+    # Get user info
+    h = httplib2.Http()
+    userinfo_url =  "https://www.googleapis.com/oauth2/v1/userinfo"
+    params = {'access_token': credentials.access_token, 'alt':'json'}
+    answer = requests.get(userinfo_url, params=params)
+  
     data = answer.json()
 
     login_session['username'] = data['name']
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
+
+    # Add the Provider to the Login Session
+    login_session['provider'] = 'google'
+
+    # see if user exists, if it doesn't make a new one
+    user_id = obtainuid(login_session['email'])
+    if not user_id:
+        user_id = createuser(login_session)
+    login_session['user_id'] = user_id
 
     output = ''
     output += '<h1>Welcome, '
@@ -118,26 +153,20 @@ def gconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
-    print "done!"
+    print ("done!")
     return output
+
+
 
     # DISCONNECT - Revoke a current user's token and reset their login_session
 
 
-
-@auth.verify_password
-def verify_password(username_or_token, password):
-    #Try to see if it's a token first
-    user_id = User.verify_auth_token(username_or_token)
-    if user_id:
-        user = session.query(User).filter_by(id = user_id).one()
-    else:
-        user = session.query(User).filter_by(username = username_or_token).first()
-        if not user or not user.verify_password(password):
-            return False
-    g.user = user
-    return True
-
+def obtainuid(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
 
 
 
