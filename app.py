@@ -161,7 +161,207 @@ def gconnect():
     # DISCONNECT - Revoke a current user's token and reset their login_session
 
 
+@app.route("/home/", methods=["GET", "POST"])
+def home():
+    if request.form:
+        print(request.form)
+    return render_template("main.html")
 
+
+@app.route('/token')
+@auth.login_required
+def get_auth_token():
+    token = g.user.generate_auth_token()
+    return jsonify({'token': token.decode('ascii')})
+
+
+
+'''
+@app.route('/index', methods=['GET'])
+ 
+def showluthiers():
+    luthier = session.query(Luthier).first()
+    items = session.query(Cello).filter_by(luthier_id=luthier.id, luthier=luthier)
+    output = ''
+    for i in items:
+        output += "Model:  " + i.model 
+        output += '</br>'
+        output += "Country: " + i.country 
+        output += '</br>' 
+        output += "Classification:  " + i.classification 
+        output += '</br>'
+        output += "Price  " + i.price 
+        output += '</br>'       
+        output += '</br>'       
+        print("well, outputs?")
+    return output 
+'''
+@app.route('/')
+@app.route('/luthiers/')
+def showluthiers():
+    """Show all manufacturers. If user is logged user can add, edit and delete manufacturers"""
+    luthiers = session.query(Luthier).all()
+    if 'username' in login_session:
+        return render_template('luthiers.html', luthiers=luthiers)
+    else:
+        return render_template('publicluthiers.html', luthiers=luthiers)
+
+'''
+
+# Show a Luthier's Cellos
+
+@app.route('/luthier/<int:luthier_id>/')
+@app.route('/luthier/<int:luthier_id>/cello')
+def showluthiers(luthier_id):
+    luthier = session.query(Luthier).filter_by(id=luthier_id).one()
+    items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
+    return render_template('cello.html', items=items, luthier=luthier)
+ 
+
+
+@app.route('/luthier/')
+def showluthiers():
+    luthiers = session.query(Luthier).first()
+    return "This page will show all of the luthiers"
+    return render_template('luthiers.html', luthiers=luthiers)
+    items = session.query(Luthier).filter_by(luthier_id
+    	=luthier.id)
+
+    output += '</br>'
+    return output
+'''
+
+@app.route('/luthiers/JSON')
+def luthiers_json():
+    """Show all luthiers as JSON"""
+    luthiers = session.query(Luthier).all()
+    return jsonify(luthiers=[l.serialize for l in luthiers])
+
+
+
+@app.route('/cellos/JSON')
+def cellos_json():
+    """Show all consoles as JSON"""
+    cellos = session.query(Cello).all()
+    return jsonify(luthiers=[c.serialize for c in cellos])
+
+
+
+# Add a new Luthier
+@app.route('/luthier/new/', methods=['GET', 'POST'])
+def newluthier():
+    if request.method == 'POST':
+        newluthier = Luthier(name=request.form['name'])
+        session.add(newluthier)
+        session.commit()
+        print("Is this even working new luthiers?")
+        return redirect(url_for('showluthiers'))
+    else:
+        return render_template('newluthier.html')
+    # return "This page will be for adding a new Luthier"
+    
+    
+
+@app.route('/edit/')    
+def editluthier():
+    return render_template('editluthier.html')
+
+
+
+@app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
+           methods=['GET', 'POST'])
+def editcello(luthier_id, cello_id):
+    item = session.query(cello_id).filter_by(id=cello_id).one()
+    if request.method == 'POST':
+        if request.form['model']:
+            item.model = request.form['model']
+        if request.form['description']:
+            item.description = request.form['description']
+        if request.form['price']:
+            item.price = request.form['price']
+        if request.form['year']:
+            item.year = request.form['year']
+        if request.form['country']:
+            item.country = request.form['country']
+        if request.form['classification']:
+            item.classification = request.form['classification']
+        session.add(item)
+        session.commit()
+        return redirect(url_for("editcelloitem.html", luthier_id=luthier_id))
+    else:
+        return render_template(
+            'editcelloitem.html', luthier_id=luthier_id, cello_id=cello_id, item=item)
+
+
+
+@app.route('/luthier/<int:luthier_id>/delete/', methods=['GET', 'POST'])
+def deleteluthier(luthier_id):
+    if 'username' in login_session:
+        delete_luthier = session.query(
+            Luthier).filter_by(id=luthier_id).one()
+
+        if request.method == 'POST':
+            session.delete(delete_luthier)
+            session.commit()
+            flash('Luthier Successfully Deleted %s' %
+                delete_luthier.name)
+            return redirect(url_for('showluthiers'))
+        else:
+            return render_template('deleteluthier.html', luthier=delete_luthier)
+    else:
+        return redirect('/login')
+
+
+
+@app.route('/cellos/')
+def showcellos():
+    cellos = session.query(Cello.id,
+                            Cello.model,
+                            Cello.description,
+                            Cello.price,
+                            Cello.year,
+                            Cello.country,
+                            Cello.classification).all()
+    print("Well, at least I tried")
+    return render_template('cellos.html', cellos=cellos)
+
+
+
+@app.route('/luthier/<int:luthier_id>/cellos/')
+def show_cellos(luthier_id):
+    luthier_id = session.query(
+        Luthier).filter_by(id=luthier_id).one()
+    cellos = session.query(Cello).filter_by(
+        luthier_id=luthier_id).all()
+    if 'username' in login_session:
+        return render_template('luthiercellos.html', luthier=Luthier.id, cellos=cellos)
+    else:
+        return render_template('publicluthiercellos.html', luthier=Luthier.id, cellos=cellos)
+
+
+
+@app.route('/users')
+def showusers():
+    users = session.query(User.id,
+                          User.name,
+                          User.email,
+                          User.website,
+                          User.picture).all()
+    
+    return render_template('users.html', users=users)
+
+'''
+@app.route('/cello/<int:luthier_id>/all')
+@app.route('/cellos/')
+def celloItem(): 
+    if request.method == 'GET':
+        cellos = session.query(Cello).filter_by(id=luthier.id, Luthier).one()
+        items = session.query(Cello).filter_by(luthier_id=luthier.id).all()
+
+        return render_template('cello.html', cellos=cellos, items=items)
+        
+    return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
+'''
 
 def getuser(email):
     try:
@@ -169,6 +369,51 @@ def getuser(email):
         return user.id
     except:
         return None
+
+
+@app.route('/api/users/<int:id>')
+def get_user(id):
+    user = session.query(User).filter_by(id=id).one()
+    if not user:
+        abort(400)
+    return jsonify({'username': user.username})
+
+
+
+
+'''
+# Create a new Cello listing   THIS WORKS (at least a little bit)
+
+@app.route('/cello/new/', methods=['GET', 'POST'])
+def newcello():
+    if request.method == 'POST':
+        newitem = newcello.item(model=request.form['model'],
+                            description=request.form['description'],
+                            price=request.form['price'],
+                            year=request.form['year'],
+                            country=request.form['country'],
+                            classification=request.form['classification'])
+        session.add(newitem)
+        session.commit()
+
+        print("Okay so did we get this far?")
+        return redirect(url_for('newcello.html'))
+    else:
+        return render_template('newcello.html')
+'''    
+
+'''
+@app.route('/deletecelloitem/')    
+def deleteCello():
+    return render_template('deletecelloitem.html')
+
+
+@app.route('/editcelloitem/')    
+def editCello():
+    return render_template('editcelloitem.html')
+'''
+
+
 
 
 
@@ -182,9 +427,7 @@ def newuser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
-
 '''
-
 @app.route('/users', methods = ['POST'])
 def new_user():
     email = request.json.get('email')
@@ -205,312 +448,8 @@ def new_user():
     session.commit()
     return jsonify({ 'email': user.email }), 201#, 
         {'Location': url_for('get_user', id = user.id, _external = True)}
-
-@app.route('/api/users/<int:id>')
-def get_user(id):
-    user = session.query(User).filter_by(id=id).one()
-    if not user:
-        abort(400)
-    return jsonify({'username': user.username})
 '''
 
-
-
-
-
-
-
-@app.route('/token')
-@auth.login_required
-def get_auth_token():
-    token = g.user.generate_auth_token()
-    return jsonify({'token': token.decode('ascii')})
-
-
-
-
-
-'''
-
-@app.route('/index', methods=['GET'])
- 
-def showluthiers():
-    luthier = session.query(Luthier).first()
-    items = session.query(Cello).filter_by(luthier_id=luthier.id, luthier=luthier)
-    output = ''
-    for i in items:
-        output += "Model:  " + i.model 
-        output += '</br>'
-        output += "Country: " + i.country 
-        output += '</br>' 
-        output += "Classification:  " + i.classification 
-        output += '</br>'
-        output += "Price  " + i.price 
-        output += '</br>'       
-        output += '</br>'       
-        print("well, outputs?")
-    return output 
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route("/home/", methods=["GET", "POST"])
-def home():
-    if request.form:
-        print(request.form)
-    return render_template("main.html")
-
-@app.route('/cellos/')
-def showcellos():
-    cellos = session.query(Cello.id,
-                            Cello.model,
-                            Cello.description,
-                            Cello.price,
-                            Cello.year,
-                            Cello.country,
-                            Cello.classification).all()
-    print("Well, at least I tried")
-    return render_template('cellos.html', cellos=cellos)
-
-
-@app.route('/cellos/JSON')
-def cellos_json():
-    """Show all consoles as JSON"""
-    cellos = session.query(Cello).all()
-    return jsonify(luthiers=[c.serialize for c in cellos])
-
-
-@app.route('/edit/')    
-def editluthier():
-    return render_template('editluthier.html')
-
-
-
-
-
-@app.route('/users')
-def showusers():
-    users = session.query(User.id,
-                          User.name,
-                          User.email,
-                          User.website,
-                          User.picture).all()
-    
-    return render_template('users.html', users=users)
-
-@app.route('/')
-@app.route('/luthiers/')
-def show_luthiers():
-    """Show all manufacturers. If user is logged user can add, edit and delete manufacturers"""
-    luthiers = session.query(Luthier).all()
-    if 'username' in login_session:
-        return render_template('luthiers.html', luthiers=luthiers)
-    else:
-        return render_template('publicluthiers.html', luthiers=luthiers)
-
-
-
-@app.route('/luthiers/JSON')
-def luthiers_json():
-    """Show all luthiers as JSON"""
-    luthiers = session.query(Luthier).all()
-    return jsonify(luthiers=[l.serialize for l in luthiers])
-
-
-
-
-@app.route('/luthier/<int:luthier_id>/cellos/')
-def show_cellos(luthier_id):
-    manufacturer = session.query(
-        Luthier).filter_by(id=luthier_id).one()
-    cellos = session.query(Cello).filter_by(
-        luthier_id=luthier_id).all()
-    if 'username' in login_session:
-        return render_template('luthiercellos.html', luthier=Luthier.id, cellos=cellos)
-    else:
-        return render_template('publicluthiercellos.html', luthier=Luthier.id, cellos=cellos)
-
-
-
-# Loads the error pag
-
-
-'''
-@app.route('/luthiers/')
-@app.route('/')
-def luthier():
-    luthiers = session.query(Luthier).all()
-    # return "This page will show all of the luthiers"
-    return render_template('luthiers.html', luthiers=luthiers)
-
-
-
-
-# Show a Luthier's Cellos
-
-@app.route('/luthier/<int:luthier_id>/')
-@app.route('/luthier/<int:luthier_id>/cello')
-def showLuthiers(luthier_id):
-    luthier = session.query(Luthier).filter_by(id=luthier_id).one()
-    items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
-    return render_template('cello.html', items=items, luthier=luthier)
- 
-
-@app.route('/cello/<int:luthier_id>/all')
-@app.route('/cellos/')
-def celloItem(): 
-    if request.method == 'GET':
-        cellos = session.query(Cello).filter_by(id=luthier.id, Luthier).one()
-        items = session.query(Cello).filter_by(luthier_id=luthier.id).all()
-
-        return render_template('cello.html', cellos=cellos, items=items)
-        
-    return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
-
-'''
-
-
-
-# Add a new Luthier
-@app.route('/luthier/new/', methods=['GET', 'POST'])
-def newluthier():
-    if request.method == 'POST':
-        newluthier = Luthier(name=request.form['name'])
-        session.add(newluthier)
-        session.commit()
-        print("Is this even working new luthiers?")
-        return redirect(url_for('showluthiers'))
-    else:
-        return render_template('newluthier.html')
-    # return "This page will be for adding a new Luthier"
-    
-    
-@app.route('/luthier/<int:luthier_id>/delete/', methods=['GET', 'POST'])
-def deleteluthier(luthier_id):
-    if 'username' in login_session:
-        delete_luthier = session.query(
-            Luthier).filter_by(id=luthier_id).one()
-
-        if request.method == 'POST':
-            session.delete(delete_luthier)
-            session.commit()
-            flash('Luthier Successfully Deleted %s' %
-                delete_luthier.name)
-            return redirect(url_for('show_luthiers'))
-        else:
-            return render_template('deleteluthier.html', luthier=delete_luthier)
-    else:
-        return redirect('/login')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
-           methods=['GET', 'POST'])
-def editcello(luthier_id, cello_id):
-    editeditem = session.query(cello_id).filter_by(id=cello_id).one()
-    if request.method == 'POST':
-        if request.form['model']:
-            editeditem.model = request.form['model']
-        if request.form['description']:
-            editeditem.description = request.form['description']
-        if request.form['price']:
-            editeditem.price = request.form['price']
-        if request.form['year']:
-            editeditem.year = request.form['year']
-        if request.form['country']:
-            editeditem.country = request.form['country']
-        if request.form['classification']:
-            editeditem.classification = request.form['classification']
-        session.add(editeditem)
-        session.commit()
-        return redirect(url_for("editcello.html", luthier_id=luthier_id))
-    else:
-        return render_template(
-            'editcello.html', luthier_id=luthier_id, cello_id=cello_id, item=editeditem)
-
-# Create a new Cello listing   THIS WORKS (at least a little bit)
-
-@app.route('/cello/new/', methods=['GET', 'POST'])
-def newcello():
-    if request.method == 'POST':
-        newitem = newcello.item(model=request.form['model'],
-                            description=request.form['description'],
-                            price=request.form['price'],
-                            year=request.form['year'],
-                            country=request.form['country'],
-                            classification=request.form['classification'])
-        session.add(newitem)
-        session.commit()
-
-        print("Okay so did we get this far?")
-        return redirect(url_for('newcello.html'))
-    else:
-        return render_template('newcello.html')
-
-
-@app.route('/main/')
-def main():
-    print("cello.html page")
-    return render_template('main.html')
-
-'''
-
-@app.route('/luthier/')
-def showLuthiers():
-    luthiers = session.query(Luthier).first()
-    return "This page will show all of the luthiers"
-    return render_template('luthiers.html', luthiers=luthiers)
-    items = session.query(Luthier).filter_by(luthier_id
-    	=luthier.id)
-
-    output += '</br>'
-    return output
-'''
-
-
-
-
-
-@app.route('/deletecelloitem/')    
-def deleteCello():
-    return render_template('deletecelloitem.html')
-
-
-@app.route('/editcelloitem/')    
-def editCello():
-    return render_template('editcelloitem.html')
 
 
 
