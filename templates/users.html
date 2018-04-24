@@ -1,0 +1,34 @@
+{% extends "main.html" %} 
+
+{% block content %}
+    
+        <div class="container">
+            <p>Click table row to view details</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>  Website  </th>
+                        <th>  Picture    </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{  user.name  }}</td>
+                        <td>{{  user.id  }}</td>
+                        <td>{{  user.email  }}</td>
+                        <td>{{  user.website  }}</td>
+                        <td>{{    user.picture  }}</td>
+                        <td><a href="{{url_for('showusers')}}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary">Add User</button>
+        </div>
+
+{% endblock %}

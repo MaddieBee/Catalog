@@ -140,9 +140,9 @@ def gconnect():
     login_session['provider'] = 'google'
 
     # see if user exists, if it doesn't make a new one
-    user_id = obtainuid(login_session['email'])
+    user_id = getuser(data["email"])
     if not user_id:
-        user_id = createuser(login_session)
+        user_id = newuser(login_session)
     login_session['user_id'] = user_id
 
     output = ''
@@ -161,7 +161,9 @@ def gconnect():
     # DISCONNECT - Revoke a current user's token and reset their login_session
 
 
-def obtainuid(email):
+
+
+def getuser(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -170,110 +172,68 @@ def obtainuid(email):
 
 
 
-'''@app.route('/clientOAuth')
-def start():
-    return render_template('clientOAuth.html')
+def newuser(login_session):
+    #newuser = User(name=login_session['username'], email=login_session[
+     #              'email'], picture=login_session['picture'])
+    newuser = User(name=login_session['username'],
+                    email=login_session['email'], picture=login_session['picture'])
+    session.add(newuser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
 
 
-@app.route('/oauth/<provider>', methods = ['POST'])
-def login(provider):
-    #STEP 1 - Parse the auth code
-    auth_code = request.json.get('auth_code')
-    print "Step 1 - Complete, received auth code %s" % auth_code
-    if provider == 'google':
-        #STEP 2 - Exchange for a token
-        try:
-            # Upgrade the authorization code into a credentials object
-            oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
-            oauth_flow.redirect_uri = 'postmessage'
-            credentials = oauth_flow.step2_exchange(auth_code)
-        except FlowExchangeError:
-            response = make_response(
-                json.dumps('Failed to upgrade the authorization code.'), 401)
-            response.headers['Content-Type'] = 'application/json'
-            return response
-          
-        # Check that the access token is valid.
-        access_token = credentials.access_token
-        url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
-               % access_token)
-        h = httplib2.Http()
-        result = json.loads(h.request(url, 'GET')[1])
-        # If there was an error in the access token info, abort.
-        if result.get('error') is not None:
-            response = make_response(json.dumps(result.get('error')), 500)
-            response.headers['Content-Type'] = 'application/json'
-            return response 
-            
-        # Verify that the access token is used for the intended user.
-        gplus_id = credentials.id_token['sub']
-        if result['user_id'] != gplus_id:
-            response = make_response(
-                json.dumps("Token's user ID doesn't match given user ID."), 401)
-            response.headers['Content-Type'] = 'application/json'
-            return response
+'''
 
-        # # Verify that the access token is valid for this app.
-        if result['issued_to'] != CLIENT_ID:
-            response = make_response(
-                json.dumps("Token's client ID does not match app's."), 401)
-            response.headers['Content-Type'] = 'application/json'
-            return response
-
-        stored_credentials = login_session.get('credentials')
-        stored_gplus_id = login_session.get('gplus_id')
-        if stored_credentials is not None and gplus_id == stored_gplus_id:
-            response = make_response(json.dumps('Current user is already connected.'),
-                                     200)
-            response.headers['Content-Type'] = 'application/json'
-            return response
-            print "Step 2 Complete! Access Token : %s " % credentials.access_token
-
-        #STEP 3 - Find User or make a new one
+@app.route('/users', methods = ['POST'])
+def new_user():
+    email = request.json.get('email')
+    password = request.json.get('password')
+    if email is None or password is None:
+        print ("missing arguments")
+        abort(400) 
         
-        #Get user info
-        h = httplib2.Http()
-        userinfo_url =  "https://www.googleapis.com/oauth2/v1/userinfo"
-        params = {'access_token': credentials.access_token, 'alt':'json'}
-        answer = requests.get(userinfo_url, params=params)
-      
-        data = answer.json()
-
-        name = data['name']
-        picture = data['picture']
-        email = data['email']
-        
-        
-     
-        #see if user exists, if it doesn't make a new one
+    if session.query(User).filter_by(email = email).first() is not None:
+        print ("existing user")
         user = session.query(User).filter_by(email=email).first()
-        if not user:
-            user = User(username = name, picture = picture, email = email)
-            session.add(user)
-            session.commit()
-
+        return jsonify({'message':'user already exists'}), 200#, 
+            {'Location': url_for('get_user', id = user.id, _external = True)}
         
+    user = User(email = email)
+    user.hash_password(password)
+    session.add(user)
+    session.commit()
+    return jsonify({ 'email': user.email }), 201#, 
+        {'Location': url_for('get_user', id = user.id, _external = True)}
 
-        #STEP 4 - Make token
-        token = user.generate_auth_token(600)
+@app.route('/api/users/<int:id>')
+def get_user(id):
+    user = session.query(User).filter_by(id=id).one()
+    if not user:
+        abort(400)
+    return jsonify({'username': user.username})
+'''
 
-        
 
-        #STEP 5 - Send back token to the client 
-        return jsonify({'token': token.decode('ascii')})
-        
-        #return jsonify({'token': token.decode('ascii'), 'duration': 600})
-    else:
-        return 'Unrecoginized Provider'
+
+
+
+
 
 @app.route('/token')
 @auth.login_required
 def get_auth_token():
     token = g.user.generate_auth_token()
     return jsonify({'token': token.decode('ascii')})
+
+
+
+
+
 '''
 
 @app.route('/index', methods=['GET'])
+ 
 def showluthiers():
     luthier = session.query(Luthier).first()
     items = session.query(Cello).filter_by(luthier_id=luthier.id, luthier=luthier)
@@ -290,6 +250,22 @@ def showluthiers():
         output += '</br>'       
         print("well, outputs?")
     return output 
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route("/home/", methods=["GET", "POST"])
@@ -324,18 +300,17 @@ def editluthier():
 
 
 
-@app.route('/delete/')    
-def deleteluthier():
-    return render_template('deleteluthier.html')
 
-'''
-ERROR list object is not callable
 
 @app.route('/users')
-def showUsers():
-    users = session.query(User).all()   Testing
-    return users 
-'''
+def showusers():
+    users = session.query(User.id,
+                          User.name,
+                          User.email,
+                          User.website,
+                          User.picture).all()
+    
+    return render_template('users.html', users=users)
 
 @app.route('/')
 @app.route('/luthiers/')
@@ -369,44 +344,45 @@ def show_cellos(luthier_id):
     else:
         return render_template('publicluthiercellos.html', luthier=Luthier.id, cellos=cellos)
 
-'''
-Turkeybutt
-ERROR - BuildError: Could not build url for endpoint 'Luthiers'. Did you mean 'luthier' instead?
+
 
 # Loads the error pag
 
-@app.route('/luthier/')
+
+'''
+@app.route('/luthiers/')
+@app.route('/')
 def luthier():
     luthiers = session.query(Luthier).all()
     # return "This page will show all of the luthiers"
     return render_template('luthiers.html', luthiers=luthiers)
 
-'''
+
 
 
 # Show a Luthier's Cellos
 
-''' @app.route('/luthier/<int:luthier_id>/')
+@app.route('/luthier/<int:luthier_id>/')
 @app.route('/luthier/<int:luthier_id>/cello')
 def showLuthiers(luthier_id):
     luthier = session.query(Luthier).filter_by(id=luthier_id).one()
     items = session.query(celloItem).filter_by(luthier_id=luthier.id).all()
     return render_template('cello.html', items=items, luthier=luthier)
-''' 
+ 
 
-
-'''
 @app.route('/cello/<int:luthier_id>/all')
 @app.route('/cellos/')
 def celloItem(): 
     if request.method == 'GET':
-        cellos = session.query(Cello).filter_by(id=luthier_id, luthier=luthier).one()
+        cellos = session.query(Cello).filter_by(id=luthier.id, Luthier).one()
         items = session.query(Cello).filter_by(luthier_id=luthier.id).all()
 
         return render_template('cello.html', cellos=cellos, items=items)
         
     return render_template('cello.html, luthier=luthier, items=items, luthier_id=luthier_id')
+
 '''
+
 
 
 # Add a new Luthier
@@ -421,6 +397,43 @@ def newluthier():
     else:
         return render_template('newluthier.html')
     # return "This page will be for adding a new Luthier"
+    
+    
+@app.route('/luthier/<int:luthier_id>/delete/', methods=['GET', 'POST'])
+def deleteluthier(luthier_id):
+    if 'username' in login_session:
+        delete_luthier = session.query(
+            Luthier).filter_by(id=luthier_id).one()
+
+        if request.method == 'POST':
+            session.delete(delete_luthier)
+            session.commit()
+            flash('Luthier Successfully Deleted %s' %
+                delete_luthier.name)
+            return redirect(url_for('show_luthiers'))
+        else:
+            return render_template('deleteluthier.html', luthier=delete_luthier)
+    else:
+        return redirect('/login')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
@@ -472,29 +485,7 @@ def main():
     print("cello.html page")
     return render_template('main.html')
 
-
-
-
-
-
-if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
-    app.debug = True
-    app.run(host='0.0.0.0', port=8000)
-
-
 '''
-# Show all catalogs 
-
-
-@app.route('/catalogs/', methods=['GET, 'POST'])
-def showCatalogs(): 
-
-
-
-
-
-
 
 @app.route('/luthier/')
 def showLuthiers():
@@ -506,6 +497,11 @@ def showLuthiers():
 
     output += '</br>'
     return output
+'''
+
+
+
+
 
 @app.route('/deletecelloitem/')    
 def deleteCello():
@@ -518,6 +514,14 @@ def editCello():
 
 
 
+
+if __name__ == '__main__':
+    app.secret_key = 'super_secret_key'
+    app.debug = True
+    app.run(host='0.0.0.0', port=8000)
+
+
+
 # When using strings, no need to specify data type.  But for integers 
 # you must specify the data type.
 
@@ -525,31 +529,3 @@ def editCello():
 # def show_post(post_id):
     # show the post with the given id, the id is an integer
 #    return 'Post %d' post_id
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if valid_login(request.form['username'],
-                        request.form['password']):
-            return log_the_user_in(request.form['username'])
-        else:
-            error = 'Invalid username/password'
-    return render_template('login.html', error=error)
-
-'''
-
-
-'''
-URLs with Variables
-"path.<type:variable_name>/path"
-
-@app.route('/')
-def ():
-    return
-
-@app.route('/')
-def ():
-    return
-'''
