@@ -10,7 +10,7 @@
                         <th>Cello</th>
                         <th>Model</th>
                         <th>Price</th>
-                        <th>  Year Built  </th>
+                        <th>  Luthier  </th>
                         <th>  Country of Origin    </th>
                         <th>Classification</th>
 
@@ -22,10 +22,10 @@
                         <td>{{  cello.id  }}</td>
                         <td>{{  cello.model  }}</td>
                         <td>{{  cello.price  }}</td>
-                        <td>{{  cello.year  }}</td>
+                        <td>{{  cello.luthier_id  }}</td>
                         <td>{{    cello.country  }}</td>
                         <td>{{  cello.classification  }}</td>
-                        <td><a href="{{url_for('editcello')}}">Edit</a></td>
+                        <td><a href="{{url_for('showcellos', luthier_id = luthier.id)}}">Edit</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

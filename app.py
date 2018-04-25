@@ -251,10 +251,13 @@ def cellos_json():
 @app.route('/luthier/new/', methods=['GET', 'POST'])
 def newluthier():
     if request.method == 'POST':
-        newluthier = Luthier(name=request.form['name'])
+        newluthier = Luthier(name=request.form['name'],
+                             lastname=request.form['lastname'],
+                             
+        )
         session.add(newluthier)
         session.commit()
-        print("Is this even working new luthiers?")
+        flash("Is this even working new luthiers?")
         return redirect(url_for('showluthiers'))
     else:
         return render_template('newluthier.html')
@@ -319,7 +322,7 @@ def showcellos():
                             Cello.model,
                             Cello.description,
                             Cello.price,
-                            Cello.year,
+                            Luthier.name,
                             Cello.country,
                             Cello.classification).all()
     print("Well, at least I tried")

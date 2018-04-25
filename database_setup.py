@@ -17,18 +17,32 @@ class User(Base):
     website = Column(String(250), nullable=False)
     picture = Column(String(400))
 
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format."""
+        return {
+            'name': self.name,
+            'id': self.id,
+            'email': self.email,
+            'website': self.website,
+            'picture': self.picture,
+        }
+
 
 class Luthier(Base):
     __tablename__ = 'luthiers'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    lastname = Column(String(250), nullable=False)
+    
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format."""
         return {
             'name': self.name,
+            'lastname': self.lastname,
             'id': self.id,
         }
 

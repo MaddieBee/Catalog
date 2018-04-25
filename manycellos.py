@@ -22,7 +22,10 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 # Add Users To Database
-user = User(name="Madison Mikhaela Bold", email="maddiebold@gmail.com", website="https://github.com/MaddieBee", picture="https://avatars3.githubusercontent.com/u/29990310?s=400&u=3405c9ac763980b083e00bfdf21f8fc88178d479&v=4")
+user = User(name="Madison Mikhaela Bold", 
+            email="maddiebold@gmail.com", 
+            website="https://github.com/MaddieBee", 
+            picture="https://avatars3.githubusercontent.com/u/29990310?s=400&u=3405c9ac763980b083e00bfdf21f8fc88178d479&v=4")
 
 session.add(user)
 session.commit()
