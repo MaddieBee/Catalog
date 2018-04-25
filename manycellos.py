@@ -32,7 +32,7 @@ session.commit()
 
 
 # Inventory for David Tecchler 
-luthier1 = Luthier(name="David Tecchler") 
+luthier1 = Luthier(name="David", lastname="Tecchler") 
 
 session.add(luthier1)
 session.commit()
@@ -82,7 +82,7 @@ session.commit()
 
 
 # Inventory for Armando Altavilla
-luthier2 = Luthier(name="Armando Altavilla")
+luthier2 = Luthier(name="Armando", lastname="Altavilla")
 
 session.add(luthier2)
 session.commit()
@@ -131,7 +131,7 @@ session.commit()
 
 
 # Inventory for Madison Bold
-luthier3 = Luthier(name="Madison Bold")
+luthier3 = Luthier(name="Madison", lastname="Bold")
 
 session.add(luthier3)
 session.commit()
@@ -180,7 +180,7 @@ session.commit()
 
 
 # Inventory for Bernd Dimbath
-luthier4 = Luthier(name="Bernd Dimbath")
+luthier4 = Luthier(name="Bernd", lastname="Dimbath")
 
 session.add(luthier4)
 session.commit()
@@ -229,7 +229,7 @@ session.commit()
 
 
 # Inventory for Johann Eberle
-luthier5 = Luthier(name="Johann Eberle")
+luthier5 = Luthier(name="Johann", lastname="Eberle")
 
 session.add(luthier5)
 session.commit()
