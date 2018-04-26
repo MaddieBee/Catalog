@@ -273,8 +273,8 @@ def editluthier():
 
 @app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
            methods=['GET', 'POST'])
-def editcello(luthier_id, cello_id):
-    item = session.query(cello_id).filter_by(id=cello_id).one()
+def editcello(cello_id):
+    item = session.query(Cello).filter_by(id=cello_id).one()
     if request.method == 'POST':
         if request.form['model']:
             item.model = request.form['model']
@@ -290,10 +290,10 @@ def editcello(luthier_id, cello_id):
             item.classification = request.form['classification']
         session.add(item)
         session.commit()
-        return redirect(url_for("editcelloitem.html", luthier_id=luthier_id))
+        return render_template('editcelloitem.html', cello=item, cello_id=item.id)
     else:
         return render_template(
-            'editcelloitem.html', luthier_id=luthier_id, cello_id=cello_id, item=item)
+            'editcelloitem.html', cello=item, cello_id=item.id)
 
 
 
@@ -319,12 +319,14 @@ def deleteluthier(luthier_id):
 @app.route('/cellos/')
 def showcellos():
     cellos = session.query(Cello.id,
-                            Cello.model,
-                            Cello.description,
-                            Cello.price,
-                            Luthier.name,
-                            Cello.country,
-                            Cello.classification).all()
+                        Cello.model,
+                        Cello.description,
+                        Cello.price,
+                        Cello.country,
+                        Cello.classification,
+                        Luthier.lastname.label('luthier_lastname'),
+                        Luthier.name.label('luthier_id')).join(Luthier, Luthier.id == Cello.luthier_id).order_by(Cello.id.asc()).all()
+                        
     print("Well, at least I tried")
     return render_template('cellos.html', cellos=cellos)
 

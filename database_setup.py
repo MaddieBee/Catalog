@@ -13,20 +13,11 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    lastname = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     website = Column(String(250), nullable=False)
     picture = Column(String(400))
 
-    @property
-    def serialize(self):
-        """Return object data in easily serializeable format."""
-        return {
-            'name': self.name,
-            'id': self.id,
-            'email': self.email,
-            'website': self.website,
-            'picture': self.picture,
-        }
 
 
 class Luthier(Base):
@@ -35,23 +26,24 @@ class Luthier(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     lastname = Column(String(250), nullable=False)
-    
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format."""
         return {
+            'id': self.id,
             'name': self.name,
             'lastname': self.lastname,
-            'id': self.id,
         }
 
 
 class Cello(Base):
     __tablename__ = 'cellos'
 
-    model = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
+    model = Column(String(80), nullable=False)
     description = Column(String(250))
     price = Column(String(10))
     year = Column(String(10))
@@ -59,18 +51,21 @@ class Cello(Base):
     classification = Column(String(80))
     luthier_id = Column(Integer, ForeignKey('luthiers.id'))
     luthier = relationship(Luthier)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format."""
         return {
+            'id': self.id,                
             'model': self.model,
             'description': self.description,
-            'id': self.id,
             'price': self.price,
             'year': self.year,
             'country': self.country,
             'classification': self.classification,
+            'luthier_id': self.luthier_id
         }
 
 engine = create_engine('sqlite:///cellocatalog.db')
