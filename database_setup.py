@@ -39,8 +39,8 @@ class Luthier(Base):
         }
 
 
-class Cello(Base):
-    __tablename__ = 'cellos'
+class Item(Base):
+    __tablename__ = 'items'
 
     id = Column(Integer, primary_key=True)
     model = Column(String(80), nullable=False)
@@ -53,6 +53,8 @@ class Cello(Base):
     luthier = relationship(Luthier)
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship(User)
+    buyer = 
+    seller = 
 
     @property
     def serialize(self):
