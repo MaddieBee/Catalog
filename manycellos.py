@@ -47,8 +47,8 @@ luthiers = [
             lastname="Altavilla"
             ),
     Luthier(id="3",
-            name="Madison",
-            lastname="Bold"
+            name="Lukas",
+            lastname="Stahl"
             ),
     Luthier(id="4",
             name="Bernd",
