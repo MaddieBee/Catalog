@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for, g
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Luthier, Base, Cello, User
+from database_setup import Luthier, Base, Item, User
 
 from flask import session as login_session 
 import random, string
@@ -16,8 +16,8 @@ from flask import make_response
 import requests 
 
 
-from flask_httpauth import HTTPBasicAuth
-auth = HTTPBasicAuth()
+'''from flask_httpauth import HTTPBasicAuth
+auth = HTTPBasicAuth()'''
 
 
 
@@ -240,10 +240,10 @@ def luthiers_json():
 
 
 @app.route('/cellos/JSON')
-def cellos_json():
+def items_json():
     """Show all consoles as JSON"""
-    cellos = session.query(Cello).all()
-    return jsonify(luthiers=[c.serialize for c in cellos])
+    items = session.query(Item).all()
+    return jsonify(luthiers=[i.serialize for i in items])
 
 
 
@@ -271,10 +271,10 @@ def editluthier():
 
 
 
-@app.route('/luthiers/<int:luthier_id>/<int:cello_id>/edit',
+@app.route('/luthiers/<int:luthier_id>/<int:item_id>/edit',
            methods=['GET', 'POST'])
-def editcello(cello_id):
-    item = session.query(Cello).filter_by(id=cello_id).one()
+def editcello(item_id):
+    item = session.query(Item).filter_by(id=item_id).one()
     if request.method == 'POST':
         if request.form['model']:
             item.model = request.form['model']
@@ -290,10 +290,10 @@ def editcello(cello_id):
             item.classification = request.form['classification']
         session.add(item)
         session.commit()
-        return render_template('editcelloitem.html', cello=item, cello_id=item.id)
+        return render_template('editcelloitem.html', item=item, item_id=item.id)
     else:
         return render_template(
-            'editcelloitem.html', cello=item, cello_id=item.id)
+            'editcelloitem.html', item=item, item_id=item.id)
 
 
 
@@ -318,30 +318,30 @@ def deleteluthier(luthier_id):
 
 @app.route('/cellos/')
 def showcellos():
-    cellos = session.query(Cello.id,
-                        Cello.model,
-                        Cello.description,
-                        Cello.price,
-                        Cello.country,
-                        Cello.classification,
+    items = session.query(Item.id,
+                        Item.model,
+                        Item.description,
+                        Item.price,
+                        Item.country,
+                        Item.classification,
                         Luthier.lastname.label('luthier_lastname'),
-                        Luthier.name.label('luthier_id')).join(Luthier, Luthier.id == Cello.luthier_id).order_by(Cello.id.asc()).all()
+                        Luthier.name.label('luthier_id')).join(Luthier, Luthier.id == Item.luthier_id).order_by(Item.id.asc()).all()
                         
     print("Well, at least I tried")
-    return render_template('cellos.html', cellos=cellos)
+    return render_template('cellos.html', items=items)
 
 
 
-@app.route('/luthier/<int:luthier_id>/cellos/')
+@app.route('/luthier/<int:luthier_id>/items/')
 def show_cellos(luthier_id):
     luthier_id = session.query(
         Luthier).filter_by(id=luthier_id).one()
-    cellos = session.query(Cello).filter_by(
+    items = session.query(Item).filter_by(
         luthier_id=luthier_id).all()
     if 'username' in login_session:
-        return render_template('luthiercellos.html', luthier=Luthier.id, cellos=cellos)
+        return render_template('luthiercellos.html', luthier=Luthier.id, items=items)
     else:
-        return render_template('publicluthiercellos.html', luthier=Luthier.id, cellos=cellos)
+        return render_template('publicluthiercellos.html', luthier=Luthier.id, items=items)
 
 
 

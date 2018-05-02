@@ -16,12 +16,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for cello in cellos %}
+                {% for item in items %}
                 <tr>
-                    <td class="align-middle">{{ cello.model }}</td>
-                    <td class="align-middle">{{ cello.year }}</td>
-                    <td class="align-middle">{{ cello.country }}</td>                    
-                    <td class="align-middle">{{ cello.price }}</td>                    
+                    <td class="align-middle">{{ item.model }}</td>
+                    <td class="align-middle">{{ item.year }}</td>
+                    <td class="align-middle">{{ item.country }}</td>                    
+                    <td class="align-middle">{{ item.price }}</td>                    
                 </tr>
                 {% endfor %}
             </tbody>
