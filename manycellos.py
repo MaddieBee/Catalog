@@ -23,47 +23,57 @@ session = DBSession()
 
 # Add Users To Database
 users = [
-        User(name="Madison",
-             lastname="Bold",
-             email="maddiebold@gmail.com", 
-             website="https://github.com/MaddieBee", 
-             picture="https://avatars3.githubusercontent.com/u/29990310?s=400&u=3405c9ac763980b083e00bfdf21f8fc88178d479&v=4")
+User(name="Madison",
+lastname="Bold",
+email="maddiebold@gmail.com", 
+website="https://github.com/MaddieBee", 
+picture="https://avatars3.githubusercontent.com/u/29990310?s=400&u=3405c9ac763980b083e00bfdf21f8fc88178d479&v=4")
+
 ]
 
-for user in users:
-    session.add(user)
-    session.commit()
+
 
 
 # Inventory for David Tecchler 
 
-luthiers = [
-    Luthier(id="1",
-            name="David",
-            lastname="Tecchler"
-            ),
-     Luthier(id="2",
-            name="Armando",
-            lastname="Altavilla"
-            ),
-    Luthier(id="3",
+users = [
+    User(id="1",
+name="David",
+lastname="Tecchler",
+email="davidtecchler@gmail.com",
+picture = Column(String(400),
+is_luthier = Column(Boolean, default=True),
+User(id="2",
+name="Armando",
+lastname="Altavilla",
+email="armandoaltavilla@gmail.com", 
+picture = Column(String(400),
+is_luthier = Column(Boolean, default=True),
+    User(id="3",
             name="Lukas",
             lastname="Stahl"
+            email="LukasStahl@gmail.com", 
+            picture = Column(String(400))
+            is_luthier = Column(Boolean, default=True)            
             ),
-    Luthier(id="4",
+    User(id="4",
             name="Bernd",
             lastname="Dimbath"
+            email= 
+            picture=
             ),
-    Luthier(id="5",
+    User(id="5",
             name="Johann",
             lastname="Eberle"
+            email= 
+            picture = Column(String(400))
+            is_luthier="True)            
             )        
         ]
 
-for luthier in luthiers:
-    session.add(luthier)
+for user in users:
+    session.add(user)
     session.commit()
-
 
 
 

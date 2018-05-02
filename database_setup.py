@@ -17,7 +17,13 @@ class User(Base):
     email = Column(String(250), nullable=False)
     website = Column(String(250), nullable=False)
     picture = Column(String(400))
-    is_luthier = Column(Boolean, default=True)
+    role = 
+
+
+Class Transaction(Base)
+    __tablename__ = 'transactions'
+
+    id = Column(Integer, primary_key=True)
 
 
 class Item(Base):
@@ -30,11 +36,8 @@ class Item(Base):
     year = Column(String(10))
     country = Column(String(80))
     classification = Column(String(80))
-    user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship(User)
-    seller = relationship(User)
-    buyer = relationship(User)
-    sold = Column(Boolean, default=True)
+    sold = Column(Integer, default=True)
      
 
     @property
