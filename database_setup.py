@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -17,13 +17,17 @@ class User(Base):
     email = Column(String(250), nullable=False)
     website = Column(String(250), nullable=False)
     picture = Column(String(400))
-    role = 
+    '''role = '''
 
 
-Class Transaction(Base)
+class Transaction(Base):
     __tablename__ = 'transactions'
 
     id = Column(Integer, primary_key=True)
+    '''buyer =
+    seller = '''
+    time_created = Column(DateTime(timezone=True), server_default=func.now())
+    time_updated = Column(DateTime(timezone=True), onupdate=func.now())    
 
 
 class Item(Base):
