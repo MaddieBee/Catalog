@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for, g
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Luthier, Base, Item, User
+from database_setup import Base, Transaction, Item, User
 
 from flask import session as login_session 
 import random, string
@@ -36,7 +36,7 @@ CLIENT_ID = json.loads(
 
 
 
-@auth.verify_password
+@app.verify_password
 def verify_password(username_or_token, password):
     #Try to see if it's a token first
     user_id = User.verify_auth_token(username_or_token)
