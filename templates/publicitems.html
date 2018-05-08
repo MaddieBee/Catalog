@@ -9,10 +9,10 @@
     <div class="container2">
            
         <span>
-            {% for luthier in luthiers %}
+            {% for item in items %}
                     
             <h4>{{ luthier.name }}</h4>
-            <a href="{{url_for('show_cellos', luthier_id = luthier.id)}}">     Show Cellos</a>
+            <a href="{{url_for('show_cellos', item_id = item.id)}}">     Show Cellos</a>
                
             {% endfor %}
         </span>   
