@@ -16,8 +16,8 @@ from flask import make_response
 import requests 
 
 
-'''from flask_httpauth import HTTPBasicAuth
-auth = HTTPBasicAuth()'''
+from flask_httpauth import HTTPBasicAuth
+auth = HTTPBasicAuth()
 
 
 
@@ -36,7 +36,7 @@ CLIENT_ID = json.loads(
 
 
 
-@app.verify_password
+@auth.verify_password
 def verify_password(username_or_token, password):
     #Try to see if it's a token first
     user_id = User.verify_auth_token(username_or_token)
@@ -200,11 +200,11 @@ def showluthiers():
 @app.route('/luthiers/')
 def showluthiers():
     """Show all manufacturers. If user is logged user can add, edit and delete manufacturers"""
-    luthiers = session.query(Luthier).all()
+    items = session.query(Item).all()
     if 'username' in login_session:
-        return render_template('luthiers.html', luthiers=luthiers)
+        return render_template('luthiers.html', items=items)
     else:
-        return render_template('publicluthiers.html', luthiers=luthiers)
+        return render_template('publicluthiers.html',  items=items)
 
 '''
 
