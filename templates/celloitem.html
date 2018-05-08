@@ -20,7 +20,7 @@
 
     {% if listings !=[] %}
 
-		<a href = "{{url_for('newcelloitem', luthier_id = luthier.id )}}">Create New Listing</a>
+		<a href = "{{url_for('newitem', item_id = item.id )}}">Create New Item</a>
 	</br></br>
 
 	<h2>Beginner</h2>
@@ -39,9 +39,9 @@
 		<p>{{i.year}}</p>
 		<p>{{i.country}}</p>
 	
-		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, item_id=i.id ) }}' >Edit</a>
+		<a href= "{{url_for('edititem', item_id=i.id ) }}">Edit</a>
 	</br>
-	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, item_id=i.id ) }}' >Delete</a>
+	<a href= "{{url_for('deleteitem', item_id = item.id, item_id=i.id ) }}" >Delete</a>
 </br>
 </br>
 		{% endif %}
@@ -69,10 +69,10 @@
 
 		<p>{{i.country}}</p>
 	
-		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, item_id=i.id ) }}' >Edit</a>
+		<a href= "{{url_for('edititem', item_id=i.id ) }}" >Edit</a>
 	</br>
-	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, item_id=i.id ) }}' >Delete</a>
-</br>
+	<a href= "{{url_for('deleteitem', item_id = item.id, item_id=i.id ) }}" >Delete</a>
+	</br>
 </br>
         {% endif %}
 
@@ -100,9 +100,9 @@
 		<p>{{i.country}}</p>
 	
 	
-		<a href='{{url_for('editcelloitem', luthier_id = luthier.id, item_id=i.id ) }}' >Edit</a>
+		<a href= "{{url_for('editcelloitem', luthier_id = luthier.id, item_id=i.id ) }}" >Edit</a>
 	
-	<a href='{{url_for('deletecelloitem', luthier_id = luthier.id, item_id=i.id ) }}' >Delete</a>
+	<a href= "{{url_for('deletecelloitem', luthier_id = luthier.id, item_id=i.id ) }}" >Delete</a>
 </br>
 </br>
 		{% endif %}

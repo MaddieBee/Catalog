@@ -325,8 +325,7 @@ def showcellos():
         Item.country,
         Item.classification,                                            
     
-    return items
-        return render_template('cellos.html', items=Item.id, items=items)
+    return render_template('cellos.html', items=Item.id, items=items)
 '''
 
 '''
