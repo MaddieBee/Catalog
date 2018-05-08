@@ -1,18 +1,18 @@
 {% extends "main.html" %} 
 {% block content %} 
 <div class="container">
-    <h1>Cello Luthiers</h1>
+    <h1>Cello Items</h1>
 
 </div>
 
-<div class="luthiername">
+<div class="itemmodel">
     <div class="container2">
            
         <span>
             {% for item in items %}
                     
-            <h4>{{ luthier.name }}</h4>
-            <a href="{{url_for('show_cellos', item_id = item.id)}}">     Show Cellos</a>
+            <h4>{{ item.model }}</h4>
+            <a href="{{url_for('showitems', item_id = item.id)}}">     Show Cellos</a>
                
             {% endfor %}
         </span>   

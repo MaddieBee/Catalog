@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, jsonify, url_for, g, flash
+from flask import Flask, render_template, request, redirect, jsonify, url_for, g, flash, abort
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -58,8 +58,6 @@ def showLogin():
     login_session['state'] = state
     #return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
-
-
 
 
 @app.route('/gconnect', methods=['POST'])
@@ -197,67 +195,41 @@ def showitems():
     return output 
 '''
 
-'''
+
+
+
+
+
 @app.route('/')
-<<<<<<< HEAD
-@app.route('/luthiers/')
-def showluthiers():
-    """Show all manufacturers. If user is logged user can add, edit and delete manufacturers"""
-    items = session.query(Item).all()
-||||||| merged common ancestors
-@app.route('/luthiers/')
-def showluthiers():
-    """Show all manufacturers. If user is logged user can add, edit and delete manufacturers"""
-    luthiers = session.query(Luthier).all()
-=======
 @app.route('/items/')
 def showitems():
     """Show all items. If user is logged user can add, edit and delete items"""
-    item = session.query(Item).all()
->>>>>>> major-changes
+    items = session.query(Item).all()
     if 'username' in login_session:
-<<<<<<< HEAD
-        return render_template('luthiers.html', items=items)
-||||||| merged common ancestors
-        return render_template('luthiers.html', luthiers=luthiers)
-=======
-        return render_template('items.html', item=items)
->>>>>>> major-changes
+        return render_template('items.html', items=items)
     else:
-<<<<<<< HEAD
-        return render_template('publicluthiers.html',  items=items)
-||||||| merged common ancestors
-        return render_template('publicluthiers.html', luthiers=luthiers)
-=======
         return render_template('publicitems.html', item=items)
 
-
-
-
->>>>>>> major-changes
 
 
 # Show a Luthier's Cellos
 
 @app.route('/item/<int:item_id>/')
-@app.route('/item/<int:item_id>/cello')
-def showitems(item_id):
-    items = session.query(celloItem).filter_by(item_id=item.id).all()
-    return render_template('cello.html', items=items, item=item)
+def celloitems(item_id):
+    items = session.query(Item).filter_by(id=item_id).all()
+    return render_template('celloitems.html', items=items)
  
 
 
-@app.route('/item/')
-def showitems():
-    items = session.query(Item).first()
+@app.route('/showitem/')
+def showitem(Item_id):
+    items = session.query(Item).all()
     return "This page will show all of the items"
     return render_template('items.html', items=items)
-    items = session.query(Item).filter_by(item_id
-    	=item.id)
+    items = session.query(Item_id).filter_by(id=Item_id)
 
-    output += '</br>'
-    return output
-'''
+    return items
+
 
 @app.route('/items/JSON')
 def items_json():
@@ -299,7 +271,7 @@ def edititem():
 
 
 
-@app.route('/items/<int:item_id>/<int:item_id>/edit',
+@app.route('/items/<int:item_id>/edit',
            methods=['GET', 'POST'])
 def editcello(item_id):
     item = session.query(Item).filter_by(id=item_id).one()
@@ -318,10 +290,10 @@ def editcello(item_id):
             item.classification = request.form['classification']
         session.add(item)
         session.commit()
-        return render_template('editcelloitem.html', item=item, item_id=item.id)
+        return render_template('edititem.html', item=item, item_id=item.id)
     else:
         return render_template(
-            'editcelloitem.html', item=item, item_id=item.id)
+            'edititem.html', item=item, item_id=item.id)
 
 
 
@@ -357,15 +329,15 @@ def showcellos():
         return render_template('cellos.html', items=Item.id, items=items)
 '''
 
-
+'''
 @app.route('/item/<int:item_id>/items/')
-def show_cellos(item_id):
+def showitems(item_id):
     items = session.query(Item).filter_by(id=item_id).all()
     if 'username' in login_session:
         return render_template('celloitems.html', items=items)
     else:
         return render_template('publiccelloitems.html', items=items)
-
+'''
 
 
 @app.route('/users')
@@ -401,8 +373,7 @@ def getuser(email):
 @app.route('/api/users/<int:id>')
 def get_user(id):
     user = session.query(User).filter_by(id=id).one()
-    if not user:
-        abort(400)
+    if not user: abort(400)
     return jsonify({'username': user.username})
 
 
