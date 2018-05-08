@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+
+
+<body>
+<div class = 'pane'>
+<h1>Cello Luthiers</h1>
+
+<a href="{{url_for('newitem')}}" > <h3> Add A New Item </h3> </a>
+
+{% for item in items %}
+
+
+
+<a href = "{{url_for('showitems', item_id = item.id)}}"> <p><strong>{{item.model}}</strong></p></a>
+
+
+<p><a href = "{{url_for('editluthier',item_id = item.id)}}">Edit Item</a></p>
+
+<p> <a href = "{{url_for('deleteluthier',item_id = item.id)}}">Delete Item</a> </p>
+
+
+
+{% endfor %}
+
+</div>
+</body>
+
+</html>
