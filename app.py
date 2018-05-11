@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, jsonify, url_for, g, flash, abort
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Transaction, Item, User
-
+from flask import Flask, render_template, request, redirect, jsonify, url_for, g, flash, make_response, abort
 from flask import session as login_session 
+from sqlalchemy import create_engine, asc, desc 
+from sqlalchemy.orm import sessionmaker
+from database_setup import *
 import random, string
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
-import httplib2
-import json
-from flask import make_response
-import requests 
+import httplib2, os, random, string, datetime, json, requests
 
 
+'''
 from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
-
+'''
 
 
 APPLICATION_NAME = "Cello Catalog"
@@ -35,7 +31,7 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 
 
-
+'''
 @auth.verify_password
 def verify_password(username_or_token, password):
     #Try to see if it's a token first
@@ -48,7 +44,7 @@ def verify_password(username_or_token, password):
             return False
     g.user = user
     return True
-
+'''
 
 # Create anti-forgery state tokens
 @app.route('/login')
@@ -164,13 +160,6 @@ def home():
     if request.form:
         print(request.form)
     return render_template("main.html")
-
-
-@app.route('/token')
-@auth.login_required
-def get_auth_token():
-    token = g.user.generate_auth_token()
-    return jsonify({'token': token.decode('ascii')})
 
 
 
@@ -447,8 +436,22 @@ def new_user():
         {'Location': url_for('get_user', id = user.id, _external = True)}
 '''
 
+@app.route('/disconnect')
+def disconnect():
+    access_token = login_session.get('access_token')
+    if access_token is None:
+        print ("Le Access Token ist None")
+        response = make_response(json.dumps('Current user not connected.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+    h = httplib2.Http()
+    h.request(url, 'GET')[0]
+    login_session.clear()
 
-
+    flash("Login session has successfully been terminated!  Auf Wiedersehen!")
+    return redirect(url_for('showitems'))
+    
 
 
 if __name__ == '__main__':
