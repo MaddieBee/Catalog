@@ -163,50 +163,21 @@ def home():
 
 
 
-'''
-@app.route('/index', methods=['GET'])
- 
-def showitems():
-    item = session.query(Item).first()
-    items = session.query(Cello).filter_by(item_id=item.id, item=item)
-    output = ''
-    for i in items:
-        output += "Model:  " + i.model 
-        output += '</br>'
-        output += "Country: " + i.country 
-        output += '</br>' 
-        output += "Classification:  " + i.classification 
-        output += '</br>'
-        output += "Price  " + i.price 
-        output += '</br>'       
-        output += '</br>'       
-        print("well, outputs?")
-    return output 
-'''
-
-
-
-
-
 
 @app.route('/')
 @app.route('/items/')
 def showitems():
     """Show all items. If user is logged user can add, edit and delete items"""
-    items = session.query(Item).all()
-    if 'username' in login_session:
-        return render_template('items.html', items=items)
-    else:
-        return render_template('publicitems.html', item=items)
-
-
+    items = session.query(Item).order_by(asc(Item.model))
+    return render_template('items.html', items=items)
+    
 
 # Show a Luthier's Cellos
 
 @app.route('/item/<int:item_id>/')
 def celloitems(item_id):
     items = session.query(Item).filter_by(id=item_id).all()
-    return render_template('celloitems.html', items=items)
+    return render_template('celloitems.html', items=items, item_id=item_id)
  
 
 
