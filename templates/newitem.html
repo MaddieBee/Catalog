@@ -1,9 +1,5 @@
-<html>
-
-<head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-<body>
+{% extends "main.html" %}
+{% block content %}
 
 <h1>New Cello</h1>
 
@@ -27,9 +23,8 @@
 
 	</br>
 
-	<a href="{{url_for('showluthiers')}}"><input type='submit' value='Add New Cello'> </a>
+	<a href="{{url_for('showitems')}}"><input type='submit' value='Add New Cello'> </a>
 
 </form>
 
-</body>
-</html>
+{% endblock %}
