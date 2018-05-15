@@ -16,19 +16,21 @@ from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
 '''
 
+app = Flask(__name__)
 
+
+
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Cello Catalog"
+
+
 
 engine = create_engine('sqlite:///cellocatalog.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
-app = Flask(__name__)
-
-CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
 
 
 '''
