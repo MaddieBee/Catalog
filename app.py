@@ -185,10 +185,9 @@ def celloitems(item_id):
 
 @app.route('/showitem/')
 def showitem(Item_id):
-    items = session.query(Item).all()
-    return "This page will show all of the items"
-    return render_template('items.html', items=items)
-    items = session.query(Item_id).filter_by(id=Item_id)
+    items = session.query(Item).one()
+    return render_template('items.html', items=item_id)
+    items = session.query(Item_id).filter_by(item_id=item_id)
 
     return items
 
@@ -214,8 +213,11 @@ def items_json():
 def newitem():
     if request.method == 'POST':
         newitem = Item(model=request.form['model'],
-                             id=request.form['id'],
-                             
+                    description=request.form['description'],   
+                    price=request.form['price'],
+                    year=request.form['year'],
+                    country=request.form['country'],
+                    classification=request.form['classification']                            
         )
         session.add(newitem)
         session.commit()
