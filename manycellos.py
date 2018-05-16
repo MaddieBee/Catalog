@@ -3,7 +3,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import Base, Luthier, Cello, User
+from database_setup import Base, Item, User
 
 
 engine = create_engine("sqlite:///cellocatalog.db", pool_pre_ping=True)
@@ -21,55 +21,41 @@ DBSession = sessionmaker(bind=engine)
 # session.rollback()
 session = DBSession()
 
-# Add Users To Database
-users = [
-User(name="Madison",
-lastname="Bold",
-email="maddiebold@gmail.com", 
-website="https://github.com/MaddieBee", 
-picture="https://avatars3.githubusercontent.com/u/29990310?s=400&u=3405c9ac763980b083e00bfdf21f8fc88178d479&v=4")
 
-]
-
-
-
-
-# Inventory for David Tecchler 
 
 users = [
     User(id="1",
-name="David",
-lastname="Tecchler",
-email="davidtecchler@gmail.com",
-picture = Column(String(400),
-is_luthier = Column(Boolean, default=True),
-User(id="2",
-name="Armando",
-lastname="Altavilla",
-email="armandoaltavilla@gmail.com", 
-picture = Column(String(400),
-is_luthier = Column(Boolean, default=True),
+        name="David",
+        lastname="Tecchler",
+        email="davidtecchler@gmail.com",
+        picture = Column(String(400)),
+
+    User(id="2",
+        name="Armando",
+        lastname="Altavilla",
+        email="armandoaltavilla@gmail.com", 
+        picture = Column(String(400)),
+    
     User(id="3",
-            name="Lukas",
-            lastname="Stahl"
-            email="LukasStahl@gmail.com", 
-            picture = Column(String(400))
-            is_luthier = Column(Boolean, default=True)            
-            ),
+        name="Lukas",
+        lastname="Stahl",
+        email="LukasStahl@gmail.com", 
+        picture = Column(String(400)),
+            
     User(id="4",
-            name="Bernd",
-            lastname="Dimbath"
-            email= 
-            picture=
-            ),
+        name="Bernd",
+        lastname="Dimbath",
+        email="BerndD@gmail.com", 
+        picture = Column(String(400)),
+    
     User(id="5",
-            name="Johann",
-            lastname="Eberle"
-            email= 
-            picture = Column(String(400))
-            is_luthier="True)            
-            )        
-        ]
+        name="Johann",
+        lastname="Eberle",
+        email="JohannEber@gmail.com", 
+        picture = "")
+    
+]
+
 
 for user in users:
     session.add(user)
@@ -77,243 +63,229 @@ for user in users:
 
 
 
-cellos = [
-        Cello(
+items = [
+        Item(
             model="Emanuel Wilfer Gofriller", 
             description="Responsive and resonant with a full-bodied and warm sound.", 
 					price="$12,000.00", 
             year="2017", 
             country="Germany", 
             classification="Advanced", 
-            luthier_id=1),
 
-        Cello(
+        Item(
             model="Sheng Liu", 
             description="Full Sound and warm tone.  Sound consistent among all registries.", 
 					price="$3,700.00", 
             year="2004",
             country="China",
             classification="Master",
-            luthier_id=1),
 
-        Cello(
+        Item(
             model="Sheng Liu 550",
             description="Full Sound and warm tone.  Sound consistent among all registries.", 
 					price="$6,700.00",
             year="2002",
             country="China",
             classification="Beginner",
-            luthier_id=1),
 
-        Cello(
+        Item(
             model="Giani 370",
             description="Finely crafted and varnished by hand.", 
 					price="$14,560.00",
             year="1966",
             country="Italy",
             classification="Student",
-            luthier_id=1),
         
-        Cello(
+        Item(
             model="Del Grasso Strad",
             description="Amazing warm sound, fine rich resonance across all registries.",
             price="$64,600.00",
             year="1891",
             country="Italy",
             classification="Advanced",
-            luthier_id=1),
 
-        Cello(
+        Item(
             model="Thomas Smith",
             description="Hand crafted my master craftsman in London.  Warm, big sound.",
             price="$47,000.00",
             year="1750", 
             country="England",
             classification="Master",
-            luthier_id=1),
 
 
-        Cello(
+        Item(
             model="Becker 440", 
             description="Hand crafted and varnished.  Beautiful warm and rich sound.",
             price="$16,500.00",
             year="2003",
             country="Germany",
             classification="Advanced",
-            luthier_id=1),
 
-        Cello(
+        Item(
             model="C1470", description="Finely crafted and varnished by hand.",	price="$13,560.00",
-        						year="1926", country="Italy", luthier_id=2),
+        						year="1926", country="Italy"),
         
         
-        Cello(
+        Item(
             model="Heinrich Gill", description="Bold and open, somewhere between bright and warm.",
-        						price="$8,375.00", year="1990", country="Germany", classification="Beginner", luthier_id=2),
+        						price="$8,375.00", year="1990", country="Germany", classification="Beginner"),
         
         
-        Cello(
+        Item(
             model="Guarneri", description="Warm sound, loud resonance.", price="$8,400.00", year="2003",
-        						country="Italy", classification="Advanced",luthier_id=2),
+        						country="Italy", classification="Advanced"),
         
-        Cello(
+        Item(
             model="Janika Wilfer 420", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,250.00", year="1993", country="Germany", classification="Student", luthier_id=2),
+        						price="$8,250.00", year="1993", country="Germany", classification="Student"),
         
-        Cello(
+        Item(
             model="C970", description="Finely crafted and varnished by hand.", price="$12,360.00",
-        						year="1974", country="Italy", classification="Beginner",luthier_id=2),
+        						year="1974", country="Italy", classification="Beginner"),
         
         
-        Cello(
+        Item(
             model="Emanuel Wilfer 920", description="Hand crafted, warm sound and even resonabce.",
-        						price="$7,250.00", year="1983", country="Germany", classification="Advanced", luthier_id=2),
+        						price="$7,250.00", year="1983", country="Germany", classification="Advanced"),
         
         
         
-        Cello(
+        Item(
             model="Emanuel Wilfer 540", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,250.000", year="1997", country="Germany", classification="Master", luthier_id=2),
+        						price="$8,250.000", year="1997", country="Germany", classification="Master"),
 
 
-        Cello(
+        Item(
             model="Calin Wultur #7", 
             description="European tonewoods.", 
             price="$7,500.00", 
             year="2017",
             country="Germany", 
             classification="Student",
-            luthier_id=3),
 
-        Cello(
+        Item(
             model="Sheng Liu",
             description="Full Sound and warm tone. Sound consistent among all registries.", 
             price="$5,700.00",
             year="2006",
             country="China",
             classification="Advanced",	
-            luthier_id=3),
 
-        Cello(
+        Item(
             model="Leonhardt 924",
             description="Extremely powerful sound! This is a cello you can dig into, but provides plenty of volume contrast.",
             year="1984",
             country="Germany",
             classification="Advanced",      
-            luthier_id=3),    
       
-        Cello(
+        Item(
             model="Dimbath X5 Gofriller",
             description="Huge sound! This cello has a soaring upper end with a bold and robust lower register.",
             price="$13,000.00",
             year="2016",
             country="Germany",
             classification="Master",
-            luthier_id=3),    
 
-        Cello(
+        Item(
             model="Guarneri 330",
             description="Warm sound, loud resonance.",
             price="$28,400.00",
             year="1902",
             country="Italy",
             classification="Master",
-            luthier_id=3),
             
-        Cello(
+        Item(
             model="Sheng Liu Master",
             description="Full Sound and warm tone. Sound consistent among all registries.", 
             price="$15,700.00",
             year="1976",
             country="China",
             classification="Advanced",
-            luthier_id=3),
                   
-        Cello(
+        Item(
             model="Szlachtowski Professional Grade",
             description="Very responsive and well-balanced, the tone and volume are nicely even across the strings.", 
             price="$16,000.00",
             year="1991",
             country="Poland",
             classification="Advanced",
-            luthier_id=3),          
             
 
-        Cello(
+        Item(
             model="L470", description="Finely crafted and varnished by hand.", price="$13,560.00", year="1947",
-        						country="Italy", classification="Advanced", luthier_id=4),
+        						country="Italy", classification="Advanced"),
         
         
-        Cello(
+        Item(
             model="Heinrich Gill 730", description="Bold and open, somewhere between bright and warm.",
-        						price="$14,375.00", year="1972", country="Germany", classification="Advanced", luthier_id=4),
+        						price="$14,375.00", year="1972", country="Germany", classification="Advanced"),
         
-        Cello(
+        Item(
             model="Guarneri X3", description="Warm sound, loud resonance.", price="$11,500.00", year="2013",
-        						country="Italy", classification="Student", luthier_id=4),
+        						country="Italy", classification="Student"),
         
-        Cello(
+        Item(
             model="Janika 220", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,750.00", year="2003", country="Germany", classification="Student", luthier_id=4),
+        						price="$8,750.00", year="2003", country="Germany", classification="Student"),
         
         
         
-        Cello(
+        Item(
             model="M70", description="Finely crafted and varnished by hand.", price="$11,360.00", year="1994",
-        						country="Italy", classification="Advanced", luthier_id=4),
+        						country="Italy", classification="Advanced"),
         
         
         
-        Cello(
+        Item(
                 model="Regarri 520", description="Hand crafted, warm sound and even resonabce.",	price="$6,250.00",
-        						year="1998", country="Italy", classification="Student", luthier_id=4),
+        						year="1998", country="Italy", classification="Student"),
         
         
-        Cello(
+        Item(
             model="Wilfer 330", description="Hand crafted, warm sound and even resonabce.",
-        						price="$16,250.00", year="1927", country="Germany", classification="Advanced", luthier_id=4),
+        						price="$16,250.00", year="1927", country="Germany", classification="Advanced"),
         
 
 
 
 
-        Cello(
+        Item(
             model="Soloist 729", description="Finely crafted and varnished by hand.",
-        						price="$17,000.00", year="1934", country="Italy", classification="Advanced", luthier_id=5),
+        						price="$17,000.00", year="1934", country="Italy", classification="Advanced"),
         
-        Cello(
+        Item(
             model="Heinrich Gill 730", description="Bold and open, somewhere between bright and warm.",
-        						price="$14,375.00", year="1972", country="Germany", classification="Advanced", luthier_id=5),
+        						price="$14,375.00", year="1972", country="Germany", classification="Advanced"),
         
-        Cello(
+        Item(
             model="Guarneri X3", description="Warm sound, loud resonance.", price="$17,500.00",
         						year="2013", country="Italy", classification="Master", luthier_id=5),
         
         
-        Cello(
+        Item(
             model="Janika 220", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,750.00", year="2003", country="Germany", classification="Student", luthier_id=5),
+        						price="$8,750.00", year="2003", country="Germany", classification="Student"),
         
         
-        Cello(
+        Item(
             model="Strad 330", description="Finely crafted and varnished by hand.", price="$28,560.00",
-        						year="1894", country="Italy", classification="Master", luthier_id=5),
+        						year="1894", country="Italy", classification="Master"),
         
         
-        Cello(
+        Item(
             model="Regarri 720", description="Hand crafted, warm sound and even resonabce.",
-        						price="$6,250.00", year="1998", country="Italy", classification="Beginner", luthier_id=5),
+        						price="$6,250.00", year="1998", country="Italy", classification="Beginner"),
         
-        Cello(
+        Item(
             model="Wilfer 740", description="Hand crafted, warm sound and even resonabce.",
-        						price="$16,250.00", year="1927", country="Germany", classification="Advanced", luthier_id=5),
+        						price="$16,250.00", year="1927", country="Germany", classification="Advanced"),
 
 
 ]
 
-for cello in cellos:
-    session.add(cello)
+for item in items:
+    session.add(item)
     session.commit()
 
 
-print ("Added Users, Luthiers, and Cellos Yo!!! ^_^ ")
+print ("Added Users, and Cellos Yo!!! ^_^ ")

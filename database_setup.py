@@ -15,7 +15,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
-    picture = Column(String(400))
+    picture = Column(String(250))
     time_created = Column(DateTime(timezone=True), server_default=func.now())
     time_updated = Column(DateTime(timezone=True), onupdate=func.now())    
     '''role = '''
@@ -26,8 +26,8 @@ class Transaction(Base):
     __tablename__ = 'transactions'
 
     id = Column(Integer, primary_key=True)
-    '''buyer =
-    seller = '''
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship(User)    
     time_created = Column(DateTime(timezone=True), server_default=func.now())
     time_updated = Column(DateTime(timezone=True), onupdate=func.now())    
 
@@ -42,9 +42,10 @@ class Item(Base):
     year = Column(String(10))
     country = Column(String(80))
     classification = Column(String(80))
+    transaction = relationship(Transaction)
+    transaction_id = Column(Integer, ForeignKey('transactions.id'))
     user = relationship(User)
     user_id = Column(Integer, ForeignKey('users.id'))
-    sold = Column(Integer, default=True)
     time_created = Column(DateTime(timezone=True), server_default=func.now())
     time_updated = Column(DateTime(timezone=True), onupdate=func.now())    
      
@@ -61,7 +62,8 @@ class Item(Base):
             'country': self.country,
             'classification': self.classification,
             'time_created': self.time_created,
-            'time_updated': self.time_updated            
+            'time_updated': self.time_updated,
+            'transaction_id': self.transaction_id            
         }
 
 engine = create_engine('sqlite:///cellocatalog.db')
