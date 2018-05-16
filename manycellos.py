@@ -63,7 +63,7 @@ items = [
             classification="Advanced"), 
 
         Item(
-            model="Sheng Liu", 
+            model="Liang 220", 
             description="Full Sound and warm tone.  Sound consistent among all registries.", 
 			price="$3,700.00", 
             year="2004",
@@ -154,7 +154,7 @@ items = [
         
         
         Item(
-            model="Emanuel Wilfer 920",
+            model="Emanuel 920",
             description="Hand crafted, warm sound and even resonabce.",
         	price="$7,250.00",
             year="1983",
@@ -181,7 +181,7 @@ items = [
             classification="Student"),
 
         Item(
-            model="Sheng Liu",
+            model="Yue Zheng",
             description="Full Sound and warm tone. Sound consistent among all registries.", 
             price="$5,700.00",
             year="2006",
@@ -212,7 +212,7 @@ items = [
             classification="Master"),
             
         Item(
-            model="Sheng Liu Master",
+            model="Sheng Liu CX7",
             description="Full Sound and warm tone. Sound consistent among all registries.", 
             price="$15,700.00",
             year="1976",
@@ -236,7 +236,7 @@ items = [
             classification="Advanced"),
         
         Item(
-            model="Heinrich Gill 730",
+            model="Heinrich Gill 890",
             description="Bold and open, somewhere between bright and warm.",
         	price="$14,375.00", 
             year="1972", 
@@ -295,7 +295,7 @@ items = [
             classification="Advanced"),
         
         Item(
-            model="Heinrich Gill 730",
+            model="Stahl Profi",
             description="Bold and open, somewhere between bright and warm.",
         	price="$14,375.00",
             year="1972", 
@@ -303,7 +303,7 @@ items = [
             classification="Advanced"),
         
         Item(
-            model="Guarneri X3",
+            model="Guarneri 715",
             description="Warm sound, loud resonance.",
             price="$17,500.00",
         	year="2013",
