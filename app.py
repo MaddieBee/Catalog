@@ -248,11 +248,11 @@ def edititem():
                 switchitup.country = request.form['country'],
                 switchitup.classification = request.form['classification']  
         
-        return redirect(url_for('showRestaurants'))
+                session.commit()
+            return redirect(url_for('showitems'))
 
-        return render_template('edititem.html')
-
-
+        else:
+            return render_template('edititem.html', item=switchitup)
 
     else:
         return redirect('/login')
