@@ -21,18 +21,6 @@ class User(Base):
     
 
 
-class Transaction(Base):
-    __tablename__ = 'transactions'
-
-    id = Column(Integer, primary_key=True)
-    status = Column(String(15), nullable=False)
-    item_id = Column(Integer, ForeignKey('items.id'))
-    user_id = Column(Integer, ForeignKey('users.id'))
-    user = relationship(User)    
-    time_created = Column(DateTime(timezone=True), server_default=func.now())
-    time_updated = Column(DateTime(timezone=True), onupdate=func.now())    
-
-
 class Item(Base):
     __tablename__ = 'items'
 
@@ -43,9 +31,6 @@ class Item(Base):
     year = Column(String(10))
     country = Column(String(80))
     classification = Column(String(80))
-    transaction = relationship(Transaction)
-    transaction_id = Column(Integer, ForeignKey('transactions.id'))
-    status = relationship(Transaction)
     user = relationship(User)
     user_id = Column(Integer, ForeignKey('users.id'))
     time_created = Column(DateTime(timezone=True), server_default=func.now())
@@ -65,7 +50,6 @@ class Item(Base):
             'classification': self.classification,
             'time_created': self.time_created,
             'time_updated': self.time_updated,
-            'transaction_id': self.transaction_id
         }
 
 engine = create_engine('sqlite:///cellocatalog.db')

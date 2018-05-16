@@ -3,7 +3,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import Base, Item, User, Transaction
+from database_setup import Base, Item, User
 
 
 engine = create_engine("sqlite:///cellocatalog.db")
@@ -25,28 +25,23 @@ session = DBSession()
 
 users = [
     User(id="1",
-        name="David",
-        lastname="Tecchler",
+        name="David Tecchler",
         email="davidtecchler@gmail.com"),
 
     User(id="2",
-        name="Armando",
-        lastname="Altavilla",
+        name="Armando Altavilla",
         email="armandoaltavilla@gmail.com"), 
     
     User(id="3",
-        name="Lukas",
-        lastname="Stahl",
-        email="LukasStahl@gmail.com",) 
+        name="Lukas Stahl",
+        email="LukasStahl@gmail.com"), 
             
     User(id="4",
-        name="Bernd",
-        lastname="Dimbath",
-        email="BerndD@gmail.com",) 
+        name="Bernd Dimbath",
+        email="BerndD@gmail.com"), 
     
     User(id="5",
-        name="Johann",
-        lastname="Eberle",
+        name="Johann Eberle",
         email="JohannEber@gmail.com")
 
 ]
@@ -353,57 +348,6 @@ items = [
 for item in items:
     session.add(item)
     session.commit()
-
-
-transactions = [
-    Transaction(
-        user_id=1,
-        status="sold",
-        item_id=14,  
-        ),
-
-    Transaction(
-        user_id=3,
-        status="available",
-        item_id=23  
-        ),
-
-    Transaction(
-        user_id=5,
-        status="sold",
-        item_id=22,  
-        ),
-
-    Transaction(
-        user_id=2,
-        status="available",
-        item_id=4,  
-        ),
-
-    Transaction(
-        user_id=2,
-        status="sold",
-        item_id=17,  
-        ),
-
-    Transaction(
-        user_id=1,
-        status="available",
-        item_id=9,  
-        ),
-
-    Transaction(
-        user_id=4,
-        status="sold",
-        item_id=5  
-        )
-
-
-]
-
-for transaction in transactions:
-    session:add(transaction)
-    session:commit()
 
 
 
