@@ -3,10 +3,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import Base, Item, User
+from database_setup import Base, Item, User, Transaction
 
 
-engine = create_engine("sqlite:///cellocatalog.db", pool_pre_ping=True)
+engine = create_engine("sqlite:///cellocatalog.db")
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
@@ -27,33 +27,28 @@ users = [
     User(id="1",
         name="David",
         lastname="Tecchler",
-        email="davidtecchler@gmail.com",
-        picture = Column(String(400)),
+        email="davidtecchler@gmail.com"),
 
     User(id="2",
         name="Armando",
         lastname="Altavilla",
-        email="armandoaltavilla@gmail.com", 
-        picture = Column(String(400)),
+        email="armandoaltavilla@gmail.com"), 
     
     User(id="3",
         name="Lukas",
         lastname="Stahl",
-        email="LukasStahl@gmail.com", 
-        picture = Column(String(400)),
+        email="LukasStahl@gmail.com",) 
             
     User(id="4",
         name="Bernd",
         lastname="Dimbath",
-        email="BerndD@gmail.com", 
-        picture = Column(String(400)),
+        email="BerndD@gmail.com",) 
     
     User(id="5",
         name="Johann",
         lastname="Eberle",
-        email="JohannEber@gmail.com", 
-        picture = "")
-    
+        email="JohannEber@gmail.com")
+
 ]
 
 
@@ -67,34 +62,34 @@ items = [
         Item(
             model="Emanuel Wilfer Gofriller", 
             description="Responsive and resonant with a full-bodied and warm sound.", 
-					price="$12,000.00", 
+			price="$12,000.00", 
             year="2017", 
             country="Germany", 
-            classification="Advanced", 
+            classification="Advanced"), 
 
         Item(
             model="Sheng Liu", 
             description="Full Sound and warm tone.  Sound consistent among all registries.", 
-					price="$3,700.00", 
+			price="$3,700.00", 
             year="2004",
             country="China",
-            classification="Master",
+            classification="Master"),
 
         Item(
             model="Sheng Liu 550",
             description="Full Sound and warm tone.  Sound consistent among all registries.", 
-					price="$6,700.00",
+			price="$6,700.00",
             year="2002",
             country="China",
-            classification="Beginner",
+            classification="Beginner"),
 
         Item(
             model="Giani 370",
             description="Finely crafted and varnished by hand.", 
-					price="$14,560.00",
+			price="$14,560.00",
             year="1966",
             country="Italy",
-            classification="Student",
+            classification="Student"),
         
         Item(
             model="Del Grasso Strad",
@@ -102,7 +97,7 @@ items = [
             price="$64,600.00",
             year="1891",
             country="Italy",
-            classification="Advanced",
+            classification="Advanced"),
 
         Item(
             model="Thomas Smith",
@@ -110,7 +105,7 @@ items = [
             price="$47,000.00",
             year="1750", 
             country="England",
-            classification="Master",
+            classification="Master"),
 
 
         Item(
@@ -119,40 +114,67 @@ items = [
             price="$16,500.00",
             year="2003",
             country="Germany",
-            classification="Advanced",
+            classification="Advanced"),
 
         Item(
-            model="C1470", description="Finely crafted and varnished by hand.",	price="$13,560.00",
-        						year="1926", country="Italy"),
+            model="C1470",
+            description="Finely crafted and varnished by hand.",
+            price="$13,560.00",
+        	year="1926",
+            country="Italy"),
         
         
         Item(
-            model="Heinrich Gill", description="Bold and open, somewhere between bright and warm.",
-        						price="$8,375.00", year="1990", country="Germany", classification="Beginner"),
+            model="Heinrich Gill",
+            description="Bold and open, somewhere between bright and warm.",
+        	price="$8,375.00",
+            year="1990",
+            country="Germany",
+            classification="Beginner"),
         
         
         Item(
-            model="Guarneri", description="Warm sound, loud resonance.", price="$8,400.00", year="2003",
-        						country="Italy", classification="Advanced"),
+            model="Guarneri",
+            description="Warm sound, loud resonance.", 
+            price="$8,400.00", 
+            year="2003",
+        	country="Italy",
+            classification="Advanced"),
         
         Item(
-            model="Janika Wilfer 420", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,250.00", year="1993", country="Germany", classification="Student"),
+            model="Janika Wilfer 420",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$8,250.00",
+            year="1993",
+            country="Germany",
+            classification="Student"),
         
         Item(
-            model="C970", description="Finely crafted and varnished by hand.", price="$12,360.00",
-        						year="1974", country="Italy", classification="Beginner"),
+            model="C970",
+            description="Finely crafted and varnished by hand.",
+            price="$12,360.00",
+        	year="1974",
+            country="Italy",
+            classification="Beginner"),
         
         
         Item(
-            model="Emanuel Wilfer 920", description="Hand crafted, warm sound and even resonabce.",
-        						price="$7,250.00", year="1983", country="Germany", classification="Advanced"),
+            model="Emanuel Wilfer 920",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$7,250.00",
+            year="1983",
+            country="Germany",
+            classification="Advanced"),
         
         
         
         Item(
-            model="Emanuel Wilfer 540", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,250.000", year="1997", country="Germany", classification="Master"),
+            model="Emanuel Wilfer 540",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$8,250.000",
+            year="1997",
+            country="Germany",
+            classification="Master"),
 
 
         Item(
@@ -161,7 +183,7 @@ items = [
             price="$7,500.00", 
             year="2017",
             country="Germany", 
-            classification="Student",
+            classification="Student"),
 
         Item(
             model="Sheng Liu",
@@ -169,14 +191,14 @@ items = [
             price="$5,700.00",
             year="2006",
             country="China",
-            classification="Advanced",	
+            classification="Advanced"),	
 
         Item(
             model="Leonhardt 924",
             description="Extremely powerful sound! This is a cello you can dig into, but provides plenty of volume contrast.",
             year="1984",
             country="Germany",
-            classification="Advanced",      
+            classification="Advanced"),      
       
         Item(
             model="Dimbath X5 Gofriller",
@@ -184,7 +206,7 @@ items = [
             price="$13,000.00",
             year="2016",
             country="Germany",
-            classification="Master",
+            classification="Master"),
 
         Item(
             model="Guarneri 330",
@@ -192,7 +214,7 @@ items = [
             price="$28,400.00",
             year="1902",
             country="Italy",
-            classification="Master",
+            classification="Master"),
             
         Item(
             model="Sheng Liu Master",
@@ -200,7 +222,7 @@ items = [
             price="$15,700.00",
             year="1976",
             country="China",
-            classification="Advanced",
+            classification="Advanced"),
                   
         Item(
             model="Szlachtowski Professional Grade",
@@ -208,84 +230,181 @@ items = [
             price="$16,000.00",
             year="1991",
             country="Poland",
-            classification="Advanced",
+            classification="Advanced"),
             
-
         Item(
-            model="L470", description="Finely crafted and varnished by hand.", price="$13,560.00", year="1947",
-        						country="Italy", classification="Advanced"),
-        
-        
-        Item(
-            model="Heinrich Gill 730", description="Bold and open, somewhere between bright and warm.",
-        						price="$14,375.00", year="1972", country="Germany", classification="Advanced"),
+            model="L470", 
+            description="Finely crafted and varnished by hand.", 
+            price="$13,560.00", 
+            year="1947",
+            country="Italy",
+            classification="Advanced"),
         
         Item(
-            model="Guarneri X3", description="Warm sound, loud resonance.", price="$11,500.00", year="2013",
-        						country="Italy", classification="Student"),
+            model="Heinrich Gill 730",
+            description="Bold and open, somewhere between bright and warm.",
+        	price="$14,375.00", 
+            year="1972", 
+            country="Germany",
+            classification="Advanced"),
         
         Item(
-            model="Janika 220", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,750.00", year="2003", country="Germany", classification="Student"),
-        
-        
-        
-        Item(
-            model="M70", description="Finely crafted and varnished by hand.", price="$11,360.00", year="1994",
-        						country="Italy", classification="Advanced"),
-        
-        
+            model="Guarneri X3",
+            description="Warm sound, loud resonance.",
+            price="$11,500.00",
+            year="2013",
+        	country="Italy",
+            classification="Student"),
         
         Item(
-                model="Regarri 520", description="Hand crafted, warm sound and even resonabce.",	price="$6,250.00",
-        						year="1998", country="Italy", classification="Student"),
+            model="Janika 220",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$8,750.00",
+            year="2003",
+            country="Germany",
+            classification="Student"),
         
-        
+           
         Item(
-            model="Wilfer 330", description="Hand crafted, warm sound and even resonabce.",
-        						price="$16,250.00", year="1927", country="Germany", classification="Advanced"),
+            model="M70", 
+            description="Finely crafted and varnished by hand.",
+            price="$11,360.00",
+            year="1994",
+            country="Italy",
+            classification="Advanced"),
         
-
-
-
-
+           
         Item(
-            model="Soloist 729", description="Finely crafted and varnished by hand.",
-        						price="$17,000.00", year="1934", country="Italy", classification="Advanced"),
-        
-        Item(
-            model="Heinrich Gill 730", description="Bold and open, somewhere between bright and warm.",
-        						price="$14,375.00", year="1972", country="Germany", classification="Advanced"),
-        
-        Item(
-            model="Guarneri X3", description="Warm sound, loud resonance.", price="$17,500.00",
-        						year="2013", country="Italy", classification="Master", luthier_id=5),
-        
-        
-        Item(
-            model="Janika 220", description="Hand crafted, warm sound and even resonabce.",
-        						price="$8,750.00", year="2003", country="Germany", classification="Student"),
+            model="Regarri 520", 
+            description="Hand crafted, warm sound and even resonabce.",
+            price="$6,250.00",
+        	year="1998",
+            country="Italy", 
+            classification="Student"),
         
         
         Item(
-            model="Strad 330", description="Finely crafted and varnished by hand.", price="$28,560.00",
-        						year="1894", country="Italy", classification="Master"),
+            model="Wilfer 330", 
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$16,250.00",
+            year="1927",
+            country="Germany",
+            classification="Advanced"),
+        
+        Item(
+            model="Soloist 729",
+            description="Finely crafted and varnished by hand.",
+        	price="$17,000.00",
+            year="1934",
+            country="Italy",
+            classification="Advanced"),
+        
+        Item(
+            model="Heinrich Gill 730",
+            description="Bold and open, somewhere between bright and warm.",
+        	price="$14,375.00",
+            year="1972", 
+            country="Germany",
+            classification="Advanced"),
+        
+        Item(
+            model="Guarneri X3",
+            description="Warm sound, loud resonance.",
+            price="$17,500.00",
+        	year="2013",
+            country="Italy",
+            classification="Master"),
+           
+        Item(
+            model="Janika 220",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$8,750.00",
+            year="2003",
+            country="Germany",
+            classification="Student"),
         
         
         Item(
-            model="Regarri 720", description="Hand crafted, warm sound and even resonabce.",
-        						price="$6,250.00", year="1998", country="Italy", classification="Beginner"),
+            model="Strad 330",
+            description="Finely crafted and varnished by hand.",
+            price="$28,560.00",
+        	year="1894",
+            country="Italy",
+            classification="Master"),
+        
         
         Item(
-            model="Wilfer 740", description="Hand crafted, warm sound and even resonabce.",
-        						price="$16,250.00", year="1927", country="Germany", classification="Advanced"),
-
-
+            model="Regarri 720",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$6,250.00",
+            year="1998",
+            country="Italy",
+            classification="Beginner"),
+        
+        Item(
+            model="Wilfer 740",
+            description="Hand crafted, warm sound and even resonabce.",
+        	price="$16,250.00",
+            year="1927",
+            country="Germany",
+            classification="Advanced")
 ]
 
 for item in items:
     session.add(item)
     session.commit()
+
+
+transactions = [
+    Transaction(
+        user_id=1,
+        status="sold",
+        item_id=14,  
+        ),
+
+    Transaction(
+        user_id=3,
+        status="available",
+        item_id=23  
+        ),
+
+    Transaction(
+        user_id=5,
+        status="sold",
+        item_id=22,  
+        ),
+
+    Transaction(
+        user_id=2,
+        status="available",
+        item_id=4,  
+        ),
+
+    Transaction(
+        user_id=2,
+        status="sold",
+        item_id=17,  
+        ),
+
+    Transaction(
+        user_id=1,
+        status="available",
+        item_id=9,  
+        ),
+
+    Transaction(
+        user_id=4,
+        status="sold",
+        item_id=5  
+        )
+
+
+]
+
+for transaction in transactions:
+    session:add(transaction)
+    session:commit()
+
 
 
 print ("Added Users, and Cellos Yo!!! ^_^ ")
