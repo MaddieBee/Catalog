@@ -23,7 +23,7 @@
                     <td class="align-middle">{{ item.year }}</td>
                     <td class="align-middle">{{ item.country }}</td>                    
                     <td class="align-middle">{{ item.price }}</td>                    
-                    <td><a href="{{url_for('editcello', item_id = item.id)}}">Edit</a></td>
+                    <td><a href="{{url_for('edititem', item_id = item.id)}}">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

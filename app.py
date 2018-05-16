@@ -211,28 +211,51 @@ def items_json():
 # Add a new Luthier
 @app.route('/item/new/', methods=['GET', 'POST'])
 def newitem():
-    if request.method == 'POST':
-        newitem = Item(model=request.form['model'],
-                    description=request.form['description'],   
-                    price=request.form['price'],
-                    year=request.form['year'],
-                    country=request.form['country'],
-                    classification=request.form['classification']                            
-        )
-        session.add(newitem)
-        session.commit()
-        flash("Is this even working new items?")
-        return redirect(url_for('showitems'))
+    if 'username' in login_session:
+        if request.method == 'POST':
+            newitem = Item(model=request.form['model'],
+                        description=request.form['description'],   
+                        price=request.form['price'],
+                        year=request.form['year'],
+                        country=request.form['country'],
+                        classification=request.form['classification']                            
+            )
+            session.add(newitem)
+            flash("New Item Successfully Added")
+            session.commit()
+            return redirect(url_for('showitems'))
+        else:
+            return render_template('newitem.html')     
+
     else:
-        return render_template('newitem.html')
+        return redirect('/login')
     # return "This page will be for adding a new item"
     
     
 
-@app.route('/edit/')    
+@app.route('/edit/', methods=['GET', 'POST'])    
 def edititem():
-    return render_template('edititem.html')
+    if 'username' in login_session:
+        switchitup = session.query(
+            Item).filter_by(id=item_id).one()
 
+        if request.method == 'POST':
+            if request.form['name']:
+                switchitup.model = request.form['model'],
+                switchitup.description = request.form['description'],   
+                switchitup.price = request.form['price'],
+                switchitup.year = request.form['year'],
+                switchitup.country = request.form['country'],
+                switchitup.classification = request.form['classification']  
+        
+        return redirect(url_for('showRestaurants'))
+
+        return render_template('edititem.html')
+
+
+
+    else:
+        return redirect('/login')
 
 
 @app.route('/items/<int:item_id>/edit',

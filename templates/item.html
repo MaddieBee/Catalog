@@ -1,0 +1,11 @@
+{% block content %}
+
+    <h1>{{ item.model }}</h1>
+    <h1>{{ item.description }}</h1>
+    <h1>{{ item.price }}</h1>
+    <h1>{{ item.year }}</h1>
+    <h1>{{ item.country }}</h1>
+    <h1>{{ item.classification }}</h1>
+
+    <a href="{{url_for('edititem', item_id = item.id)}}" class="card-link">Edit</a>
+{% endblock %}

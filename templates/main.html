@@ -15,6 +15,14 @@
   
       <h1>Madison Bold's verschiedene Cellos! ^_^ Voll geil oder?</h1>
   
+<a href = "{{url_for('newitem', item_id = item.id)}}">Create New Item</a>
+
+<a href= "{{url_for('edititem', item_id = item.id)}}">Edit Item</a>
+
+
+<a href= "{{url_for('deleteitem', item_id = item.id)}}">Delete</a>
+
+
       {% block content %}
       {% endblock %}
 

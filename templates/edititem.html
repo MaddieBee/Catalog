@@ -10,16 +10,21 @@
 
 <dl>
 
-	<dt>Model:</dt>
-		<dd><input type ='text' size='30' name='model' placeholder = '{{item.model }}'></dd>
-	<dt>Description:</dt>
+	<label for="model">Model</label>
+		<dd><input type ='text' size='30' id='model' placeholder = '{{item.model }}'></dd>
+
+	<label for="description">Description:</label>
 		<dd><input type ='text' size='30' name='description' placeholder = '{{item.description}}'></dd>
+	
 	<dt>Price:</dt>
 		<dd><input type ='text' size='30' name='price' placeholder = '{{item.price}}'></dd>
+	
 	<dt>Year:</dt>
 		<dd><input type ='text' size='30' name='year' placeholder = '{{item.year}}'></dd>	
+	
 	<dt>Country:</dt>
 		<dd><input type ='text' size='30' name='country' placeholder = '{{item.country}}'></dd>		
+	
 	<dt>Classification:</dt>
 
 	{% if item.classification == 'Beginner' %}
