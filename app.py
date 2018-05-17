@@ -234,10 +234,9 @@ def newitem():
     
 
 @app.route('/edit/', methods=['GET', 'POST'])    
-def edititem():
+def edititem(item_id):
     if 'username' in login_session:
-        switchitup = session.query(
-            Item).filter_by(id=item_id).one()
+        switchitup = session.query(Item).filter_by(id=item_id).one()
 
         if request.method == 'POST':
             if request.form['name']:
@@ -249,10 +248,13 @@ def edititem():
                 switchitup.classification = request.form['classification']  
         
                 session.commit()
-            return redirect(url_for('showitems'))
+            return redirect(url_for('showitems', item_id=switchitup.id))
 
         else:
-            return render_template('edititem.html', item=switchitup)
+            items = session.query(Item.id, Item.model).all()
+
+
+            return render_template('edititem.html', item=switchitup, items=items)
 
     else:
         return redirect('/login')
