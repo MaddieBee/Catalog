@@ -1,69 +1,75 @@
-<html>
+{% extends "main.html" %}
+{% block content %}
 
-<head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
+	<div class="main">
 
-<body><h1> Edit Cello Item </h1>
+		<div class="top banner row">
 
-<form action="{{ url_for('edititem',item_id = item_id, item_id=item.id)}}" method = 'post'>
+			<h1> Edit Item {{item.name}} </h1>
 
-<dl>
-
-	<label for="model">Model</label>
-		<dd><input type ='text' size='30' id='model' placeholder = '{{item.model }}'></dd>
-
-	<label for="description">Description:</label>
-		<dd><input type ='text' size='30' name='description' placeholder = '{{item.description}}'></dd>
-	
-	<dt>Price:</dt>
-		<dd><input type ='text' size='30' name='price' placeholder = '{{item.price}}'></dd>
-	
-	<dt>Year:</dt>
-		<dd><input type ='text' size='30' name='year' placeholder = '{{item.year}}'></dd>	
-	
-	<dt>Country:</dt>
-		<dd><input type ='text' size='30' name='country' placeholder = '{{item.country}}'></dd>		
-	
-	<dt>Classification:</dt>
-
-	{% if item.classification == 'Beginner' %}
-			<dd><input type ='radio' name='classification' value='Beginner' checked>Beginner</dd>
-		
-		{%else%}
-		<dd><input type ='radio' name='classification' value='Beginner' >Beginner</dd>
-	    {% endif %}
-
-	    {% if item.classification == 'Student' %}
-	       <dd><input type ='radio' name='classification' value='Student' checked>Student</dd>
-
-	    {%else%}
-			<dd><input type ='radio' name='classification' value='Student'>Student</dd>
-	    {% endif %}
-
-		{% if item.classification == 'Advanced'%}
-			<dd><input type ='radio' name='classification' value='Advanced' checked>Advanced</dd>
-
-		{% else %}
-		   <dd><input type ='radio' name='classification' value='Advanced'>Advanced</dd>
-
-		{% endif %}
+		</div>
 
 
-		{%if item.classification =='Master'%}
-			<dd><input type ='radio' name='classification' value='Master' checked>Master</dd>
-		{% else %}
-			<dd><input type ='radio' name='classification' value='Master'>Master</dd>
-		{% endif %}
+		<div class="row">
 
-</dl>
+			<form action="{{ url_for('edititem', item_id=item.id)}}" method = 'post'>
 
-<input type='submit' value='Edit'>
+					<dl>
+
+						<label for="model">Model:</label>
+							
+						<input type ="text" size="30" id="model" value="{{item.model }}">
+
+							<label for="description">Description:</label>
+							<input type ="text" size="30" id="description" value="{{item.description }}">
+							
+							<label for="price">Price:</label>
+							<input type ="text" size="30" id="price" value="{{item.price }}">
+							
+							<label for="year">Year:</label>
+							<input type ="text" size="30" id="year" value="{{item.year }}">
+							
+							<label for="country">Country:</label>
+							<input type ="text" size="30" id="country" value="{{item.country }}">
+							
+
+							<label for="classification">Classification:</label>
+
+							{% if item.classification == 'Beginner' %}
+									<dd><input type ='radio' name='classification' value='Beginner' checked>Beginner</dd>
+								
+								{%else%}
+								<dd><input type ='radio' name='classification' value='Beginner' >Beginner</dd>
+							    {% endif %}
+
+							    {% if item.classification == 'Student' %}
+							       <dd><input type ='radio' name='classification' value='Student' checked>Student</dd>
+
+							    {%else%}
+									<dd><input type ='radio' name='classification' value='Student'>Student</dd>
+							    {% endif %}
+
+								{% if item.classification == 'Advanced'%}
+									<dd><input type ='radio' name='classification' value='Advanced' checked>Advanced</dd>
+
+								{% else %}
+								   <dd><input type ='radio' name='classification' value='Advanced'>Advanced</dd>
+
+								{% endif %}
 
 
-<a href = "{{ url_for('edititem',item_id = item_id)}}"> OOPS!  JK JK! </a>
+								{%if item.classification =='Master'%}
+									<dd><input type ='radio' name='classification' value='Master' checked>Master</dd>
+								{% else %}
+									<dd><input type ='radio' name='classification' value='Master'>Master</dd>
+								{% endif %}
 
+						</dl>
 
-</form>
-</body>
-</html>
+						<input type='submit' value='Edit'>
+
+			</form>
+
+	</div>
+
+{% endblock %}
